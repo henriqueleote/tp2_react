@@ -2,7 +2,7 @@
 
 ## How to install
 
-1. First of all, create a new Pixel 4XL with Android 11 and API 30. There is no need to create an Android Studio project, you can access the Device Manager in the top right corner on the app start.
+1. First of all, create a new Pixel 4XL with Android 11 and API 30. There is no need to create an Android Studio project, you can access the Device Manager in the top right corner on the "Project Chooser" page.
 
 2. Go to Control Panel > User Accounts > User Accounts > Change my
    environment variables (left side) > New  
