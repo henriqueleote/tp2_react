@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "3540113474",
+    "project_id": "protectu-cm",
+    "storage_bucket": "protectu-cm.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3540113474:android:d3d0342c55c8c0c0a035db",
+        "android_client_info": {
+          "package_name": "cm.protectu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "3540113474-l050m5dl39d4q9dmcsldmo9skjqilsb1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmq5e4OLm_48jZ6XHqE8FNL4i6s_Y8W68"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "3540113474-l050m5dl39d4q9dmcsldmo9skjqilsb1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3540113474:android:a0fd3f954fa64a28a035db",
+        "android_client_info": {
+          "package_name": "com.tp2_react"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "3540113474-l050m5dl39d4q9dmcsldmo9skjqilsb1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmq5e4OLm_48jZ6XHqE8FNL4i6s_Y8W68"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "3540113474-l050m5dl39d4q9dmcsldmo9skjqilsb1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
