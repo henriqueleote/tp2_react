@@ -55,7 +55,9 @@ const App = () => {
   });
 
   if (authenticated) {
+    console.log("Session: " + auth().currentUser.uid);
     return <MainActivity />;
+
   }
 
   return <Login />;
