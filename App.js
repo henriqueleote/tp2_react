@@ -4,6 +4,7 @@ import Tabs from './navigation/tabs';
 
 import Login from './src/screens/Login';
 //import MainPage from './src/screens/MainPage';
+import MainActivity from './MainActivity'
 import auth from '@react-native-firebase/auth';
 
 
@@ -43,11 +44,21 @@ import auth from '@react-native-firebase/auth';
 }*/
 
 const App = () => {
-  return (
-    <NavigationContainer>
-      <Tabs />
-    </NavigationContainer>
-  );
+  const [authenticated, setAuthenticated] = useState(false);
+
+  auth().onAuthStateChanged((user) => {
+    if (user) {
+      setAuthenticated(true);
+    } else {
+      setAuthenticated(false);
+    }
+  });
+
+  if (authenticated) {
+    return <MainActivity />;
+  }
+
+  return <Login />;
 }
 
 export default App;

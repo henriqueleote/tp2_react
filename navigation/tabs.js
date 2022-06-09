@@ -4,6 +4,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Home from '../src/screens/HomeScreen';
 import Profile from '../src/screens/ProfileScreen';
+import News from '../src/screens/NewsScreen';
+import Community from '../src/screens/CommunityScreen';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -20,13 +23,16 @@ const Tabs = () => {
                     elevation: 0,
                     backgroudColor: '#ffffff',
                     borderRadius: 15,
-                    height: 90,
+                    height: 70,
                     ...styles.shadow
                 }
             }}
         >
-            <Tab.Screen name='Home' component={Home} />
-            <Tab.Screen name='Profile' component={Profile}/>
+            <Tab.Screen name='Home' component={Home} options={{ tabBarIcon: () => (<Image source={require("../assets/icons/map.png")} style={{ width: 30, height: 30 }} />) }} />
+            <Tab.Screen name='News' component={News} options={{tabBarIcon: () => (<Image source={require("../assets/icons/news.png")} style={{width: 30, height: 30}} />)}} />
+            <Tab.Screen name='Community' component={Community} options={{tabBarIcon: () => (<Image source={require("../assets/icons/community.png")} style={{width: 30, height: 30}} />)}} />
+            <Tab.Screen name='Profile' component={Profile} options={{tabBarIcon: () => (<Image source={require("../assets/icons/profile.png")} style={{width: 30, height: 30}} />)}} />
+            
         </Tab.Navigator>
     )
 }
