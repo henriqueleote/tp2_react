@@ -42,6 +42,7 @@ import auth from '@react-native-firebase/auth';
 
   return <Login signin={signin} createUser={createUser} />;
 }*/
+//fsdfsd
 
 const App = () => {
   const [authenticated, setAuthenticated] = useState(false);
