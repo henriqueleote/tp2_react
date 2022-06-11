@@ -1,12 +1,16 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text,ScrollView } from 'react-native';
+//import { ScrollView } from 'react-native-gesture-handler';
 
-const HomeScreen = ({ navigation }) => {
+import NewMessage from '../Components/NewMessage'
+
+const NewMessageComunity = ({ navigation }) => {
     return (
-        <View>
-            <Text>Home Screen</Text>
-        </View>
+        <ScrollView>
+            <NewMessage/>
+        </ScrollView>
+        
     );
 };
 
-export default HomeScreen;
+export default NewMessageComunity;
