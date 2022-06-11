@@ -1,16 +1,14 @@
 import React from 'react';
-import { View, Text,ScrollView } from 'react-native';
-//import { ScrollView } from 'react-native-gesture-handler';
+import { View, Text } from 'react-native';
 
-import NewMessage from '../Components/NewMessage'
+import MissingPost from '../Components/MissingPost'
 
-const NewMessageComunity = ({ navigation }) => {
+const Post = ({ navigation }) => {
     return (
-        <ScrollView>
-            <NewMessage/>
-        </ScrollView>
-        
+        <View>
+            <MissingPost/>
+        </View>
     );
 };
 
-export default NewMessageComunity;
+export default Post;

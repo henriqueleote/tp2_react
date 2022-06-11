@@ -3,16 +3,16 @@ import { View, Image, Text, ScrollView } from 'react-native';
 
 var styles = require('./styles');
 
-const NewMessage = () => {
+const MissingPost = () => {
     return (
-    // <ScrollView style={styles.scrollView}>
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Image style={styles.arrowBack} source={require('../../Images/arrowBack.png')} />
-                <Text style={styles.title}>New Post</Text>
-            </View>
+        <ScrollView showsHorizontalScrollIndicator style={styles.scrollView}>
+            <View style={styles.container}>
+                <View style={styles.header}>
+                    <Image style={styles.arrowBack} source={require('../../Images/arrowBack.png')} />
+                    <Text style={styles.title}>New Post</Text>
+                </View>
 
-            
+
                 <View style={styles.cardContainer}>
                     <View style={styles.headerCard}>
                         <Image style={styles.profileImage} source={require('../../Images/profileIcon.png')} />
@@ -32,11 +32,11 @@ const NewMessage = () => {
                         <Image style={styles.arrowBack} source={require('../../Images/share.png')} />
                     </View>
                 </View>
-            
-        </View>
-// </ScrollView>
+
+            </View>
+        </ScrollView>
 
     );
 };
 
-export default NewMessage;
+export default MissingPost;
