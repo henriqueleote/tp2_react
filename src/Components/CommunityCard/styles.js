@@ -3,16 +3,15 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
-        display: 'flex',
         marginTop: 50,
         marginLeft:20,
         marginRight: 20,
         backgroundColor: '#FFFFFF',
         borderRadius: 20,
-        padding: 10
+        padding: 10,
+        minHeight: 150
     },
     header: {
-        display: 'flex',
         flexDirection: 'row',
         alignItems: 'center'
     },
@@ -21,22 +20,40 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
     userName: {
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: 'black'
     },
     description: {
+        marginTop: 10,
         marginLeft:40
     },
-    footer: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center'
+    postImage:{
+        flex: 1,
+        width: '80%',
+        resizeMode: 'cover',
+        height: 100,
+        marginVertical: 20,
+        marginLeft: 'auto',
+        marginRight: 'auto'
     },
+    footer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 'auto',
+        marginRight: 10
+    },
+    
     date: {
         
     },
+    reactionContainer: {
+        flexDirection: 'row',
+        marginLeft: 'auto'
+    },
     reactionIcons: {
-        width: 30,
-        height: 30
+        width: 20,
+        marginRight:20,
+        height: 20
     }
 
     
