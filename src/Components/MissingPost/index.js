@@ -1,14 +1,21 @@
 import React from 'react';
-import { View, Image, Text, ScrollView, Linking } from 'react-native';
+import { View, Image, Text, ScrollView, Linking, Platform , TouchableHighlight } from 'react-native';
 
 
 var styles = require('./styles');
 
 const MissingPost = (props) => {
     
-    makeCall = () => {
+    const makeCall = () =>{
+        let phone;
+        
         console.log("TELE PAAA"+props.phoneNumber);
-        Linking.openURL(props.phoneNumber);
+        if(Platform.OS === 'android'){
+            phone='tel:${' + props.phoneNumber+ '}';
+        }else{
+            phone='telprompt:${' + props.phoneNumber + '}';
+        }
+        Linking.openURL(phone);
     }
 
     return (
@@ -35,7 +42,10 @@ const MissingPost = (props) => {
                     </View>
 
                     <View style={styles.comunication}>
-                        <Image onPress={makeCall()} style={styles.phoneIcon} source={require('../../Images/phone.png')} />
+
+                    <TouchableHighlight onPress={()=>{makeCall()}}>
+                        <Image  style={styles.phoneIcon} source={require('../../Images/phone.png')} />
+                    </TouchableHighlight>
                         <Image style={styles.shareIcon} source={require('../../Images/share.png')} />
                     </View>
 

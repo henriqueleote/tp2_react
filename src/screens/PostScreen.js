@@ -30,11 +30,9 @@ const Post = ({ navigation }) => {
                             setMissingName(missingName);
                             setMissingAge(missingAge);
                             setDescription(description);
-                            if(PlatformColor.OS === 'android'){
-                                setPhoneNumber('tel:${' + phoneNumber+ '}');
-                            }else{
-                                setPhoneNumber('telprompt:${' + phoneNumber + '}');
-                            }
+                            
+                            setPhoneNumber(phoneNumber);
+                            
                             
                         
                             await firestore().collection('users').where('uid', '==', userID).get()
