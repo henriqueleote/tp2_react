@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { View, Text } from 'react-native';
+import { View, PlatformColor, Linking } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
@@ -30,8 +30,13 @@ const Post = ({ navigation }) => {
                             setMissingName(missingName);
                             setMissingAge(missingAge);
                             setDescription(description);
-                            setPhoneNumber(phoneNumber);
-
+                            if(PlatformColor.OS === 'android'){
+                                setPhoneNumber('tel:${' + phoneNumber+ '}');
+                            }else{
+                                setPhoneNumber('telprompt:${' + phoneNumber + '}');
+                            }
+                            
+                        
                             await firestore().collection('users').where('uid', '==', userID).get()
                                 .then(docSnapshot => {
                                     if (docSnapshot) {

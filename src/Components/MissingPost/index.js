@@ -1,9 +1,16 @@
 import React from 'react';
-import { View, Image, Text, ScrollView } from 'react-native';
+import { View, Image, Text, ScrollView, Linking } from 'react-native';
+
 
 var styles = require('./styles');
 
 const MissingPost = (props) => {
+    
+    makeCall = () => {
+        console.log("TELE PAAA"+props.phoneNumber);
+        Linking.openURL(props.phoneNumber);
+    }
+
     return (
 
         <View style={styles.container}>
@@ -28,7 +35,7 @@ const MissingPost = (props) => {
                     </View>
 
                     <View style={styles.comunication}>
-                        <Image style={styles.phoneIcon} source={require('../../Images/phone.png')} />
+                        <Image onPress={makeCall()} style={styles.phoneIcon} source={require('../../Images/phone.png')} />
                         <Image style={styles.shareIcon} source={require('../../Images/share.png')} />
                     </View>
 
