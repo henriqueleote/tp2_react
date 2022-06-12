@@ -1,14 +1,13 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-import MissingPost from '../Components/MissingPost'
 
-const Post = ({ navigation }) => {
+const HomeScreen = ({ navigation }) => {
     return (
         <View>
-            <MissingPost/>
+            <Text>HELLO WORLD</Text>
         </View>
     );
 };
 
-export default Post;
+export default HomeScreen;

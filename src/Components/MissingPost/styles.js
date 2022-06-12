@@ -4,96 +4,109 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     
     container:{
-        backgroundColor:"#F1EFEF"
+        backgroundColor:"#F1EFEF",
+        height: '90%'
+       
     },
-    header:{
-        flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'center',
-        marginTop:20,
-    },
+    // header:{
+    //     flexDirection:'row',
+    //     alignItems:'center',
+    //     justifyContent:'center',
+    //     marginTop:20,
+    // },
 
-    title: {
-        fontSize: 20,
-        color: "#000000",
-        justifyContent:'center',
-        marginLeft:'auto',
-        marginRight:'auto',
-    },
+    // title: {
+    //     fontSize: 20,
+    //     color: "#000000",
+    //     justifyContent:'center',
+    //     marginLeft:'auto',
+    //     marginRight:'auto',
+    // },
 
-    arrowBack: {
-        width: 30, 
-        height: 30,
-        marginLeft: 10,
-        marginRight: -30
-    },
+    // arrowBack: {
+    //     width: 30, 
+    //     height: 30,
+    //     marginLeft: 10,
+    //     marginRight: -30
+    // },
 
-    /*
+    
     scrollView:{
-        
         width:'100%',
         height: '100%',
     },
-    */
+    
     cardContainer: {
+        flexDirection: "column",
         justifyContent: 'center',
         backgroundColor:"#FFFFFF",
-        height: '100%',
-        borderBottomLeftRadius: 30,
-        borderBottomRightRadius: 30,
-        borderTopRightRadius: 30,
-        borderTopLeftRadius: 30,
-        overflow: 'hidden',
+        borderRadius:30,
         marginHorizontal:15,
-        marginTop:15
+        marginTop:15,
+        elevation: 5,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
     },
 
     headerCard:{
-        flex: 1, 
+        flex:1,
         flexDirection: 'row',
         marginLeft: 20,
         marginTop: 10,
-        
     },
 
     profileImage:{
         width: 25,
         height: 25,
-        borderBottomLeftRadius: 100,
-        borderBottomRightRadius: 100,
-        borderTopRightRadius: 100,
-        borderTopLeftRadius: 100,
-        
+        borderRadius:100
     },
 
     profileName:{
-        marginLeft:10
+        marginLeft:10,
+        fontSize: 15
     },
-
-    allInfoAboutMissing:{
-        width: '100%',
-        height: '83%',
-    },
-
+    //AO DAR O TAMANHO À IMAGEM NAO FICA RESPONSIVE COMO FAÇO??
     missingImage:{
+        height:200,
+        resizeMode:'cover',
         width: '100%',
-        height: '40%',
+        
     },
+
     infoTextMissing:{
+        flex:2,
         width: '100%',
-        height: '60%',
         marginTop: 10,
-        marginLeft:5
+        paddingLeft:10,
+        paddingRight:10
     },
-    missingName:{
+
+    text:{
         fontSize: 15,
+        marginTop:5
     },
-    missingAge:{
-        fontSize:15
+
+    comunication:{
+        flexDirection: "row-reverse",
+        marginTop:'auto',
+        paddingLeft:30,
+        paddingBottom:10,
+        paddingTop:20
     },
-    missingDescription:{
-        fontSize:15
+
+    phoneIcon:{
+        height:35,
+        width:35,
+    },
+
+    shareIcon:{
+        height:35,
+        width:35,
+        marginRight:10
     }
+    
     
     
 })

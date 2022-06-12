@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import Home from '../src/screens/HomeScreen';
+import Home from '../src/screens/PostScreen';
 import Profile from '../src/screens/ProfileScreen';
 import News from '../src/screens/NewsScreen';
 import Community from '../src/screens/CommunityScreen';
