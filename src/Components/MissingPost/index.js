@@ -1,15 +1,13 @@
 import React from 'react';
-import { View, Image, Text, ScrollView, Linking, Platform , TouchableHighlight } from 'react-native';
+import { View, Image, Text, ScrollView, Linking, Platform , TouchableHighlight, Share } from 'react-native';
 
 
 var styles = require('./styles');
 
 const MissingPost = (props) => {
     
-    const makeCall = () =>{
+    const makeCall = async () =>{
         let phone;
-        
-        console.log("TELE PAAA"+props.phoneNumber);
         if(Platform.OS === 'android'){
             phone='tel:${' + props.phoneNumber+ '}';
         }else{
@@ -17,6 +15,18 @@ const MissingPost = (props) => {
         }
         Linking.openURL(phone);
     }
+
+    const share = async  () =>{
+        
+            const result = await Share.share({
+              message:
+                'Missing Person: ' + props.missingName + '|' 
+                + '\n Age: ' + props.missingAge + '\n' 
+                + 'Description: ' + props.description,});
+            
+        };
+        
+    
 
     return (
 
@@ -46,7 +56,9 @@ const MissingPost = (props) => {
                     <TouchableHighlight onPress={()=>{makeCall()}}>
                         <Image  style={styles.phoneIcon} source={require('../../Images/phone.png')} />
                     </TouchableHighlight>
+                    <TouchableHighlight onPress={()=>{share()}}>
                         <Image style={styles.shareIcon} source={require('../../Images/share.png')} />
+                    </TouchableHighlight>
                     </View>
 
                 </View>
