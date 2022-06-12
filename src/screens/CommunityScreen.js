@@ -7,11 +7,14 @@ import firestore from '@react-native-firebase/firestore';
 import Card from '../Components/CommunityCard'
 
 
-const HomeScreen = ({ navigation }) => {
+const CommunityScreen = ({ navigation }) => {
 
     const [posts, setPosts] = useState([]);
 
     const postsList = [];
+
+    const [username, setUsername] = useState("");
+    const [userImage, setUserImage] = useState("");
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -19,24 +22,38 @@ const HomeScreen = ({ navigation }) => {
                 .orderBy("date").get()
                 .then(collectionSnapshot => {
                     collectionSnapshot
-                        .forEach(documentSnapshot => {
-                            const { messageID, messageText, userID, date, imageURL } = documentSnapshot.data();
+                        .forEach( async(documentSnapshot) => {
+                            const { messageText, userID, date, imageURL } = documentSnapshot.data();
 
-                            const userData = {};
 
-                            console.log("UserID ->>>>>> "+userID)
 
-                            firestore().collection('users').where("uid" == userID).get()
+                            await firestore().collection('users').where('uid', '==', userID).get()
                                 .then(docSnapshot => {
-                                    if (docSnapshot.exists) {
-                                        userData = docSnapshot.data()
-                                        console.log(userData)
+                                    if (docSnapshot) {
+                                        docSnapshot.forEach(user => {
+                                            const { firstName, lastName, imageURL } = user.data()
+
+                                            const usernameAux = firstName + ' ' + lastName;
+
+                                            console.log("NAmeAux: " + usernameAux)
+
+                                            setUsername(usernameAux);
+                                            setUserImage(imageURL);
+                                            console.log("NAme: " + username)
+
+
+
+                                        })
+
                                     }
                                 });
 
 
+
+
                             postsList.push(documentSnapshot.data({
-                                userID: userID,
+                                username: username,
+                                userImage: userImage,
                                 messageText: messageText,
                                 imageURL: imageURL,
                                 date: date
@@ -45,6 +62,8 @@ const HomeScreen = ({ navigation }) => {
                 });
 
             setPosts(postsList);
+
+            console.log("Size->>>>>>> " + postsList.length)
 
 
         }
@@ -58,7 +77,9 @@ const HomeScreen = ({ navigation }) => {
         <ScrollView>
             {posts.map((post) => {
                 return (
-                    <Card                        
+                    <Card
+                        username={post.username}
+                        userImage={post.userImage}
                         image={post.imageURL}
                         message={post.messageText}
                         date={post.date}
@@ -71,4 +92,4 @@ const HomeScreen = ({ navigation }) => {
     );
 };
 
-export default HomeScreen;
+export default CommunityScreen;

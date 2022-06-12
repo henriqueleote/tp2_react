@@ -4,11 +4,12 @@ import { View, Image, Text } from 'react-native';
 var styles = require('./styles');
 
 const CommunityCard = (props) => {
+    console.log('Community: ' + props.username)
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Image style={styles.userIcon} source={require(`../../Images/sos.png`)} />
-                <Text style={styles.userName}>Nome do Utilizador</Text>
+                <Image style={styles.userIcon} source={{uri: props.userImage}} />
+                <Text style={styles.userName}>{props.username}</Text>
             </View>
 
             <Text style={styles.description}>{props.message}</Text>
