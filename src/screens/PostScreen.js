@@ -33,8 +33,6 @@ const Post = ({ navigation }) => {
                             
                             setPhoneNumber(phoneNumber);
                             
-                            
-                        
                             await firestore().collection('users').where('uid', '==', userID).get()
                                 .then(docSnapshot => {
                                     if (docSnapshot) {
