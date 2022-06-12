@@ -19,7 +19,7 @@ const Post = ({ navigation }) => {
     useEffect(() => {
         const fetchPosts = async () => {
             await firestore().collection('missing-board')
-                .get()
+                .where("missingID","==","fUWUP0IWorlRmonhaFtA").get()
                 .then(collectionSnapshot => {
                     collectionSnapshot
                         .forEach(async(documentSnapshot) => {
@@ -32,7 +32,7 @@ const Post = ({ navigation }) => {
                             setDescription(description);
                             setPhoneNumber(phoneNumber);
 
-                            await firestore().collection('users').where('uid', '==', "fdfDwxQIViVU8D98UyK547mAmgM2").get()
+                            await firestore().collection('users').where('uid', '==', userID).get()
                                 .then(docSnapshot => {
                                     if (docSnapshot) {
                                         docSnapshot.forEach(user => {
