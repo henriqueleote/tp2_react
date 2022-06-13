@@ -16,11 +16,11 @@ const CommunityScreen = ({ navigation }) => {
     const [users, setUsers] = useState([]);
 
 
-    function getUsers() {
+    async function getUsers() {
 
         const usersList = [];
 
-        firestore().collection('users').get()
+        await firestore().collection('users').get()
             .then(docSnapshot => {
                 if (docSnapshot) {
                     docSnapshot.forEach(user => {
@@ -51,7 +51,7 @@ const CommunityScreen = ({ navigation }) => {
                             const { messageID, messageText, userID, date, imageURL } = documentSnapshot.data();
                             const user = users.find(user => user.uid === userID)
 
-                            
+
                             postsList.push({
                                 username: user.firstName + " " + user.lastName,
                                 userImage: user.imageURL,
