@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 50,
+        marginTop: 20,
         marginLeft:20,
         marginRight: 20,
         backgroundColor: '#FFFFFF',
@@ -17,7 +17,8 @@ const styles = StyleSheet.create({
     },
     userIcon: {
         width: 30, height: 30,
-        marginRight: 10
+        marginRight: 10,
+        borderRadius: 20
     },
     userName: {
         fontWeight: 'bold',

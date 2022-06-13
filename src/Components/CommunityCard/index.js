@@ -4,7 +4,14 @@ import { View, Image, Text } from 'react-native';
 var styles = require('./styles');
 
 const CommunityCard = (props) => {
-    console.log('Community: ' + props.username)
+    function doLike(){
+
+    }
+
+    function doDislike(){
+
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -16,6 +23,7 @@ const CommunityCard = (props) => {
             <Image style={styles.postImage} source={{ uri: props.image}}/>
             <View style={styles.footer}>
 
+                {/* TO DO: formatar a data */}
                 <Text style={styles.date}>Date</Text>
                 <View style={styles.reactionContainer}>
                     <Image style={styles.reactionIcons} source={require(`../../Images/like.jpg`)} />
