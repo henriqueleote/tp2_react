@@ -50,22 +50,12 @@ const ProfileScreen = () => {
             {user.map((single) => {
             return (
                     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={{justifyContent: 'center', alignItems: 'center'}}
-        showsVerticalScrollIndicator={false}>
-        <Image
-          style={styles.userImg}
-          source={{uri: single.imageURL }}
-        />
-              <Text style={styles.userName}>
-                  {single.firstName + " "}
-                  {single.lastName}
-              </Text>
-              
-        <Button title='Logout' onPress={() => logout()}></Button>
-      </ScrollView>
-    </SafeAreaView>
+                      <ScrollView style={styles.container} contentContainerStyle={{justifyContent: 'center', alignItems: 'center'}} showsVerticalScrollIndicator={false}>
+                        <Image style={styles.userImg} source={{uri: single.imageURL }} />
+                        <Text style={styles.userName}> {single.firstName + " "} {single.lastName} </Text>      
+                        <Button title='Logout' onPress={() => logout()}></Button>
+                      </ScrollView>
+                    </SafeAreaView>
             )
       }) }
         </ScrollView> 

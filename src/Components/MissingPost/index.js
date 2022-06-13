@@ -24,19 +24,18 @@ const MissingPost = (props) => {
                 + '\n Age: ' + props.missingAge + '\n' 
                 + 'Description: ' + props.description,});
             
-        };
+};
         
-    
 
     return (
 
         <View style={styles.container}>
             <ScrollView showsHorizontalScrollIndicator style={styles.scrollView}>
+
                 {/* <View style={styles.header}>
                     <Image style={styles.arrowBack} source={require('../../Images/arrowBack.png')} />
                     <Text style={styles.title}>New Post</Text>
                 </View> */}
-
 
                 <View style={styles.cardContainer}>
 

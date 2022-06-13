@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, View, Image, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
+import { createStackNavigator, createAppContainer } from 'react-navigation'; 
+import ProfileScreen from './ProfileScreen'; 
 
-import MissingPost from '../Components/MissingPost/index.js';
+
 
 const rows = 3;
 const cols = 2;
@@ -89,10 +91,7 @@ const styles = StyleSheet.create({
 
 const MissingCard = (props) => {
     return (
-        <TouchableOpacity onPress={() => {
-            this.props.navigation.navigate('MissingPost')
-        }}
-        >
+        <TouchableOpacity onPress={() => alert(props.missingID)}>
             <View style={[stylesGrid.boxContainer, styles.border]} >
                 <Image style={[styles.body, styles.borderTop]} source={{ uri: props.fotoMissing }} />
                 <Text style={styles.missingName}>{props.missingName}</Text>
@@ -102,7 +101,7 @@ const MissingCard = (props) => {
 }
 
 
-const HomeScreen = () => {
+const MissingBoardScreen = () => {
     const [missing, setMissing] = useState([]);
 
     useEffect(() => {
@@ -134,10 +133,9 @@ const HomeScreen = () => {
                         return (
                             <MissingCard
                                 key={post.missingID}
+                                missingID={post.missingID}
                                 fotoMissing={post.fotoMissing}
-                                missingName={post.missingName}
-
-                            />
+                                missingName={post.missingName} />
                         )
                     })}
                 </View>
@@ -149,4 +147,4 @@ const HomeScreen = () => {
 
 
 
-export default HomeScreen;
+export default MissingBoardScreen;
