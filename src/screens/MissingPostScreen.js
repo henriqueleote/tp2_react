@@ -1,9 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import { View, PlatformColor, Linking, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity, Text, Image } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
 
 import MissingPost from '../Components/MissingPost'
+import { ScrollView } from 'react-native-gesture-handler';
+
+var styles = require('./CommunityScreen/styles');
 
 const Post = ({ route }) => {
 
@@ -59,9 +63,17 @@ const Post = ({ route }) => {
 
     }, []);
 
+        const navigation = useNavigation();
+
 
     return (
-        <View>
+        
+        <ScrollView>
+            <View style={styles.header}>
+                <TouchableOpacity onPress={() => { navigation.goBack() }}>
+                    <Image style={styles.backArrow} source={require('../Images/arrowBack.png')} />
+                </TouchableOpacity>
+            </View>
             <MissingPost 
                 userID = {userID}
                 fotoMissing = {fotoMissing}
@@ -70,9 +82,9 @@ const Post = ({ route }) => {
                 description = {description}
                 phoneNumber = {phoneNumber}
                 username = {username}
-                userFoto = {userFoto}
+                userFoto={userFoto}
             />
-        </View>
+        </ScrollView>
     );
 
 };

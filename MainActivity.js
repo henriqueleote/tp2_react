@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import Tabs from './navigation/tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import PostScreen from './src/screens/PostScreen';
+import MissingPostScreen from './src/screens/MissingPostScreen';
+import NewsPostScreen from './src/screens/NewsPostScreen';
+
 
 const Stack = createStackNavigator();
 
@@ -11,7 +13,8 @@ const MainActivity = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false}}/>
-        <Stack.Screen name="PostScreen" component={PostScreen} options={{ headerShown: false}}/>
+        <Stack.Screen name="MissingPostScreen" component={MissingPostScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="NewsPostScreen" component={NewsPostScreen} options={{ headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
     /*<NavigationContainer>

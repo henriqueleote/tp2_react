@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, StyleSheet, Image, } from 'react-native';
+import { View, Text, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { ScrollView } from 'react-native-gesture-handler';
 import ProfileScreen from './ProfileScreen';
+import { useNavigation } from '@react-navigation/native';
 
 
 const NewsScreen = () => {
     
     const [news, setNews] = useState([]);
     const [users, setUsers] = useState([]);
+    const navigation = useNavigation();
+
     
     useEffect(() => {
         const getNews = async () => {
@@ -51,8 +54,9 @@ const NewsScreen = () => {
     return (
         <ScrollView style={{ padding: 20 }}>
             {news.map((single) => {
-            return (
-                <View key={ single.newsID } style={styles.list}>
+                return (
+                        <TouchableOpacity onPress={() => navigation.navigate('NewsPostScreen', {newsID : single.newsID})/*alert(props.missingID)*/}>
+            <View key={ single.newsID } style={styles.list}>
                         <Image source={{ uri: single.imageURL }} style={styles.listImage} />
                         <View style={styles.listingRatingContainer}>
                         <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', }}>
@@ -69,6 +73,8 @@ const NewsScreen = () => {
                         </View>
                         
                 </View>
+        </TouchableOpacity>
+                
             )
       }) }
             </ScrollView>

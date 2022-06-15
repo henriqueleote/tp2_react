@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, View, Image, Text, StyleSheet, Dimensions, TouchableOpacity, Button } from 'react-native';
+import { ScrollView, View, Image, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { createStackNavigator, createAppContainer } from 'react-navigation'; 
 import ProfileScreen from './ProfileScreen'; 
@@ -93,7 +93,7 @@ const MissingCard = (props) => {
     const navigation = useNavigation();
 
     return (
-        <TouchableOpacity onPress={() => navigation.navigate('PostScreen', {missingID : props.missingID})/*alert(props.missingID)*/}>
+        <TouchableOpacity onPress={() => navigation.navigate('MissingPostScreen', {missingID : props.missingID})/*alert(props.missingID)*/}>
             <View style={[stylesGrid.boxContainer, styles.border]} >
                 <Image style={[styles.body, styles.borderTop]} source={{ uri: props.fotoMissing }} />
                 <Text style={styles.missingName}>{props.missingName}</Text>

@@ -1,13 +1,9 @@
 /* eslint-disable prettier/prettier */
 import { StyleSheet } from 'react-native';
+import { block } from 'react-native-reanimated';
 
 const styles = StyleSheet.create({
-    
-    container:{
-        backgroundColor:"#F1EFEF",
-        height: '90%'
-       
-    },
+
     header:{
         flexDirection:'row',
         alignItems:'center',
@@ -31,9 +27,19 @@ const styles = StyleSheet.create({
     },
 
     
-    scrollView:{
-        width:'100%',
-        height: '100%',
+    scrollView: {
+        marginBottom: 20,
+        paddingBottom: 10,
+        marginLeft: 15,
+        marginRight: 15,
+        flexDirection: "column",
+        backgroundColor:"#FFFFFF",
+        borderRadius:30,
+        elevation: 5,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
     },
     
     cardContainer: {
@@ -42,7 +48,7 @@ const styles = StyleSheet.create({
         backgroundColor:"#FFFFFF",
         borderRadius:30,
         marginHorizontal:15,
-        marginTop:15,
+        marginTop: 15,
         elevation: 5,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 3 },
@@ -98,17 +104,14 @@ const styles = StyleSheet.create({
 
     phoneIcon:{
         height:35,
-        width:35,
+        width: 35,
+        marginRight:10
     },
 
     shareIcon:{
         height:35,
         width:35,
-        marginRight:10
-    }
-    
-    
-    
+    }   
 })
 
 module.exports = styles;
