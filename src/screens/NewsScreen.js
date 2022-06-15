@@ -51,29 +51,28 @@ const NewsScreen = () => {
         getUsers();
     }, []);
 
-    return (
+   return (
         <ScrollView style={{ padding: 20 }}>
             {news.map((single) => {
                 return (
-                        <TouchableOpacity onPress={() => navigation.navigate('NewsPostScreen', {newsID : single.newsID})/*alert(props.missingID)*/}>
-            <View key={ single.newsID } style={styles.list}>
-                        <Image source={{ uri: single.imageURL }} style={styles.listImage} />
-                        <View style={styles.listingRatingContainer}>
-                        <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', }}>
-                            <Image source={{ uri: single.pubImgURL }} style={styles.pubImage} />
-                            <Text style={styles.title}>{single.newsTitle}</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('NewsPostScreen', {newsID : single.newsID})}>
+                        <View key={ single.newsID } style={styles.list}>
+                            <Image source={{ uri: single.imageURL }} style={styles.listImage} />
+                            <View style={styles.listingRatingContainer}>
+                                <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', }}>
+                                    <Image source={{ uri: single.pubImgURL }} style={styles.pubImage} />
+                                    <Text style={styles.title}>{single.newsTitle}</Text>
+                                </View>
+                                <View style={{ flexDirection: 'row', margin: 10 }}>
+                                    <Text style={styles.text}>{single.newsText}</Text>
+                                </View>
+                                <View style={{ flexDirection: 'row', margin: 10 }}>
+                                    <Text style={styles.date}>{new Date(single.date.seconds * 1000).toLocaleDateString("pt-PT")}</Text>
+                                    <Text style={styles.seeMore}>see more</Text>
+                                </View>
+                            </View>
                         </View>
-                        <View style={{ flexDirection: 'row', margin: 10 }}>
-                            <Text style={styles.text}>{single.newsText}</Text>
-                        </View>
-                        <View style={{ flexDirection: 'row', margin: 10 }}>
-                            <Text style={styles.date}>{new Date(single.date.seconds * 1000).toLocaleDateString("pt-PT")}</Text>
-                            <Text style={styles.seeMore}>see more</Text>
-                        </View>
-                        </View>
-                        
-                </View>
-        </TouchableOpacity>
+                    </TouchableOpacity>
                 
             )
       }) }
