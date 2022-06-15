@@ -8,27 +8,27 @@ const styles = StyleSheet.create({
         height: '90%'
        
     },
-    // header:{
-    //     flexDirection:'row',
-    //     alignItems:'center',
-    //     justifyContent:'center',
-    //     marginTop:20,
-    // },
+    header:{
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'center',
+        marginTop:20,
+    },
 
-    // title: {
-    //     fontSize: 20,
-    //     color: "#000000",
-    //     justifyContent:'center',
-    //     marginLeft:'auto',
-    //     marginRight:'auto',
-    // },
+    title: {
+        fontSize: 20,
+        color: "#000000",
+        justifyContent:'center',
+        marginLeft:'auto',
+        marginRight:'auto',
+    },
 
-    // arrowBack: {
-    //     width: 30, 
-    //     height: 30,
-    //     marginLeft: 10,
-    //     marginRight: -30
-    // },
+    arrowBack: {
+        width: 30, 
+        height: 30,
+        marginLeft: 10,
+        marginRight: -30
+    },
 
     
     scrollView:{

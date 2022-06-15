@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import { View, PlatformColor, Linking } from 'react-native';
+import { View, PlatformColor, Linking, TouchableOpacity, Text } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
 import MissingPost from '../Components/MissingPost'
 
-const Post = ({ navigation }) => {
+const Post = ({ route }) => {
 
     const [userID, setUserID] = useState([]);
     const [fotoMissing, setFotoMissing] = useState("");
@@ -17,9 +17,10 @@ const Post = ({ navigation }) => {
     const [userFoto, setUserFoto] = useState("");
 
     useEffect(() => {
+        const { missingID } = route.params;
         const fetchPosts = async () => {
             await firestore().collection('missing-board')
-                .where("missingID","==","fUWUP0IWorlRmonhaFtA").get()
+                .where("missingID","==",missingID).get()
                 .then(collectionSnapshot => {
                     collectionSnapshot
                         .forEach(async(documentSnapshot) => {

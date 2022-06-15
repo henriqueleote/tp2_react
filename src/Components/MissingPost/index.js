@@ -32,10 +32,10 @@ const MissingPost = (props) => {
         <View style={styles.container}>
             <ScrollView showsHorizontalScrollIndicator style={styles.scrollView}>
 
-                {/* <View style={styles.header}>
+                <View style={styles.header}>
                     <Image style={styles.arrowBack} source={require('../../Images/arrowBack.png')} />
                     <Text style={styles.title}>New Post</Text>
-                </View> */}
+                </View>
 
                 <View style={styles.cardContainer}>
 
