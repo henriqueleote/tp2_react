@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, View, Image, Text } from 'react-native';
+import { ScrollView, View, Image, Text, TouchableOpacity } from 'react-native';
 
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
@@ -16,69 +16,71 @@ const CommunityScreen = ({ navigation }) => {
     const [users, setUsers] = useState([]);
 
 
-    async function getUsers() {
-
-        const usersList = [];
-
-        await firestore().collection('users').get()
-            .then(docSnapshot => {
-                if (docSnapshot) {
-                    docSnapshot.forEach(user => {
-                        const { firstName, lastName, imageURL } = user.data()
-                        let username = firstName;
-                        username += ' ' + lastName;
-
-                        usersList.push(user.data({
-                            username: username,
-                            userImage: imageURL,
-                        }));
-                    })
-
-                }
-
-                setUsers(usersList);
-            });
-
-    }
-
     useEffect(() => {
+
+
         const fetchPosts = async () => {
             await firestore().collection('community-chat')
                 .orderBy("date").get()
                 .then(collectionSnapshot => {
                     collectionSnapshot
                         .forEach((documentSnapshot) => {
-                            const { messageID, messageText, userID, date, imageURL } = documentSnapshot.data();
+                            const { messageID, messageText, userID, date, imageURL, likes, dislikes } = documentSnapshot.data();
                             const user = users.find(user => user.uid === userID)
 
+                            // console.log("Name: " + user.firstName)
+                            // var name = user.firstName;
+                            // name += ' ' + user.lastName;
 
                             postsList.push({
-                                username: user.firstName + " " + user.lastName,
-                                userImage: user.imageURL,
+                                username: "name",
+                                // userImage: user.imageURL,
                                 messageText: messageText,
                                 imageURL: imageURL,
-                                date: date,
-                                messageID: messageID
+                                date: new Date(date.seconds * 1000).toLocaleDateString("pt-PT"),
+                                messageID: messageID,
+                                likes: likes,
+                                dislikes: dislikes
                             });
                         });
                 });
 
-
-
             setPosts(postsList);
-
-
-
         }
+
+
+        const getUsers = async () => {
+            var usersData = [];
+            try {
+                firestore().collection('users').get()
+                    .then(querySnapshot => {
+                        querySnapshot.forEach(documentSnapshot => {
+                            usersData.push(documentSnapshot.data());
+                        });
+                        setUsers(usersData);
+                    });
+                fetchPosts();
+            }
+            catch (error) {
+                console.log(error);
+            }
+        };
+
         getUsers();
-        fetchPosts();
 
     }, []);
 
+
+
+
+
     return (
+
         <View>
             <View style={styles.header}>
-                <Image style={styles.backArrow} source={require(`../../Images/arrowBack.png`)} />
+                {/* <TouchableOpacity onPress={() => { navigation.goBack() }}>
+                    <Image style={styles.backArrow} source={require(`../../Images/arrowBack.png`)} />
+                </TouchableOpacity> */}
                 <Text style={styles.pageTitle}>Community</Text>
             </View>
             {/* Card */}
@@ -92,12 +94,15 @@ const CommunityScreen = ({ navigation }) => {
                             image={post.imageURL}
                             message={post.messageText}
                             date={post.date}
+                            likes={post.likes}
+                            dislikes={post.dislikes}
+                            messageID={post.messageID}
                         />
                     )
                 })}
 
-
             </ScrollView>
+
         </View>
     );
 };
