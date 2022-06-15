@@ -10,10 +10,10 @@ const styles = StyleSheet.create({
         marginVertical: 20
     },
     backArrow: {
-        width: 20,
-        height: 20,
+        width: 30,
+        height: 30,
         resizeMode: 'stretch',
-        marginRight: -40 ,
+        marginRight: -50 ,
         marginLeft: 20
     },
     pageTitle: {

@@ -52,9 +52,14 @@ const styles = StyleSheet.create({
         marginLeft: 'auto'
     },
     reactionIcons: {
+        
         width: 20,
-        marginRight:20,
+        marginRight:10,
         height: 20
+    },
+    reaction: {
+        flexDirection: 'row',
+        marginRight: 20
     }
 
     
