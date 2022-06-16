@@ -7,33 +7,14 @@ import { useNavigation } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const NewsPostScreen = ({ route }) => {
-    const [pubImgURL, setPubImgURL] = useState("");
-    const [newsTitle, setNewsTitle] = useState("");
-    const [date, setDate] = useState("");
-    const [newsText, setNewsText] = useState("");
-    const [imageURL, setImageURL] = useState("");
-    const [pubID, setPubID] = useState([]);
+    const { postData } = route.params;
+
     const [username, setUsername] = useState("");
 
 
     useEffect(() => {
-        const { newsID } = route.params;
-        const fetchPosts = async () => {
-            await firestore().collection('news')
-                .where("newsID","==",newsID).get()
-                .then(collectionSnapshot => {
-                    collectionSnapshot
-                        .forEach(async(documentSnapshot) => {
-                            const { pubID, pubImgURL, newsTitle, newsText, imageURL, date } = documentSnapshot.data();
-
-                            setPubID(pubID);
-                            setPubImgURL(pubImgURL);
-                            setNewsTitle(newsTitle);
-                            setNewsText(newsText);
-                            setImageURL(imageURL);
-                            setDate(date);
-                                                        
-                            await firestore().collection('users').where('uid', '==', pubID).get()
+        const fetchUser = async () => {
+            await firestore().collection('users').where('uid', '==', postData.pubID).get()
                                 .then(docSnapshot => {
                                     if (docSnapshot) {
                                         docSnapshot.forEach(user => {
@@ -48,12 +29,9 @@ const NewsPostScreen = ({ route }) => {
                                     }
                                 });
 
-                        });
-                });
-
         }
 
-        fetchPosts();
+        fetchUser();
 
     }, []);
 
@@ -62,15 +40,15 @@ const NewsPostScreen = ({ route }) => {
     const share = async  () =>{
         
         const result = await Share.share({
-          message:
-            newsText});
+          message: postData.newsText
+        });
         
     };
     return (
         
         <ScrollView>
             <View style={styles.header}>
-                <ImageBackground source={{ uri: imageURL }} resizeMode="cover" style={styles.imageIRL}>
+                <ImageBackground source={{ uri: postData.imageURL }} resizeMode="cover" style={styles.imageIRL}>
                 <TouchableOpacity onPress={() => { navigation.goBack() }}>
                     <Image style={styles.backArrow} source={require('../Images/arrowBack.png')} />
                 </TouchableOpacity>
@@ -81,14 +59,14 @@ const NewsPostScreen = ({ route }) => {
             </View>
 
             <View style={styles.details}>
-                <Text style={styles.title}>{newsTitle}</Text>
+                <Text style={styles.title}>{postData.newsTitle}</Text>
                 <View style={styles.date}>
                     <Image style={styles.calendar} source={require('../Images/calendar.jpg')}></Image>
-                    <Text>{new Date(date.seconds * 1000).toLocaleDateString("pt-PT")}</Text>
+                    <Text>{new Date(postData.date.seconds * 1000).toLocaleDateString("pt-PT")}</Text>
                 </View>
-                <Text style={styles.text}>{newsText}</Text>
+                <Text style={styles.text}>{postData.newsText}</Text>
                 <View style={styles.user}>
-                    <Image style={styles.pubImage} source={{ uri: pubImgURL }}></Image>
+                    <Image style={styles.pubImage} source={{ uri: postData.pubImgURL }}></Image>
                     <Text>{username}</Text>
                 </View>
             </View>

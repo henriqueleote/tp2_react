@@ -55,7 +55,7 @@ const NewsScreen = () => {
         <ScrollView style={{ padding: 20 }}>
             {news.map((single) => {
                 return (
-                    <TouchableOpacity onPress={() => navigation.navigate('NewsPostScreen', {newsID : single.newsID})}>
+                    <TouchableOpacity onPress={() => navigation.navigate('NewsPostScreen', { postData: single })}>
                         <View key={ single.newsID } style={styles.list}>
                             <Image source={{ uri: single.imageURL }} style={styles.listImage} />
                             <View style={styles.listingRatingContainer}>
