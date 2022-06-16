@@ -3,8 +3,7 @@ import { ScrollView, View, Image, Text, StyleSheet, Dimensions, TouchableOpacity
 import firestore from '@react-native-firebase/firestore';
 import { createStackNavigator, createAppContainer } from 'react-navigation'; 
 import ProfileScreen from './ProfileScreen'; 
-
-
+import { useNavigation } from '@react-navigation/native';
 
 const rows = 3;
 const cols = 2;
@@ -12,6 +11,7 @@ const marginHorizontal = 7;
 const marginVertical = 7;
 const width = (Dimensions.get('window').width / cols) - (marginHorizontal * (cols + 1));
 const height = 200;
+
 
 const stylesGrid = StyleSheet.create({
     scrollContainer: {
@@ -90,8 +90,10 @@ const styles = StyleSheet.create({
 })
 
 const MissingCard = (props) => {
+    const navigation = useNavigation();
+
     return (
-        <TouchableOpacity onPress={() => alert(props.missingID)}>
+        <TouchableOpacity onPress={() => navigation.navigate('MissingPostScreen', {missingID : props.missingID})/*alert(props.missingID)*/}>
             <View style={[stylesGrid.boxContainer, styles.border]} >
                 <Image style={[styles.body, styles.borderTop]} source={{ uri: props.fotoMissing }} />
                 <Text style={styles.missingName}>{props.missingName}</Text>

@@ -1,11 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import { View, PlatformColor, Linking } from 'react-native';
+import { View, TouchableOpacity, Text, Image } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
 
 import MissingPost from '../Components/MissingPost'
+import { ScrollView } from 'react-native-gesture-handler';
 
-const Post = ({ navigation }) => {
+var styles = require('./CommunityScreen/styles');
+
+const Post = ({ route }) => {
 
     const [userID, setUserID] = useState([]);
     const [fotoMissing, setFotoMissing] = useState("");
@@ -17,9 +21,10 @@ const Post = ({ navigation }) => {
     const [userFoto, setUserFoto] = useState("");
 
     useEffect(() => {
+        const { missingID } = route.params;
         const fetchPosts = async () => {
             await firestore().collection('missing-board')
-                .where("missingID","==","fUWUP0IWorlRmonhaFtA").get()
+                .where("missingID","==",missingID).get()
                 .then(collectionSnapshot => {
                     collectionSnapshot
                         .forEach(async(documentSnapshot) => {
@@ -58,9 +63,17 @@ const Post = ({ navigation }) => {
 
     }, []);
 
+        const navigation = useNavigation();
+
 
     return (
-        <View>
+        
+        <ScrollView>
+            <View style={styles.header}>
+                <TouchableOpacity onPress={() => { navigation.goBack() }}>
+                    <Image style={styles.backArrow} source={require('../Images/arrowBack.png')} />
+                </TouchableOpacity>
+            </View>
             <MissingPost 
                 userID = {userID}
                 fotoMissing = {fotoMissing}
@@ -69,9 +82,9 @@ const Post = ({ navigation }) => {
                 description = {description}
                 phoneNumber = {phoneNumber}
                 username = {username}
-                userFoto = {userFoto}
+                userFoto={userFoto}
             />
-        </View>
+        </ScrollView>
     );
 
 };
