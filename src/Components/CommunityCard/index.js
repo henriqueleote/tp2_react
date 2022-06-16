@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
-import Video from 'react-native-video';
 
 
 import auth from '@react-native-firebase/auth';
