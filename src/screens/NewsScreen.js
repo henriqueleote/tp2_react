@@ -58,36 +58,56 @@ const NewsScreen = () => {
         wait(1000).then(() => setRefreshing(false));
     }, []);
     return (
-        <ScrollView style={{ padding: 20 }}
-            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
-            {news.map((single) => {
-                return (
-                    <TouchableOpacity onPress={() => navigation.navigate('NewsPostScreen', { postData: single })}>
-                        <View key={single.newsID} style={styles.list}>
-                            <Image source={{ uri: single.imageURL }} style={styles.listImage} />
-                            <View style={styles.listingRatingContainer}>
-                                <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', }}>
-                                    <Image source={{ uri: single.pubImgURL }} style={styles.pubImage} />
-                                    <Text style={styles.title}>{single.newsTitle}</Text>
-                                </View>
-                                <View style={{ flexDirection: 'row', margin: 10 }}>
-                                    <Text style={styles.text}>{single.newsText}</Text>
-                                </View>
-                                <View style={{ flexDirection: 'row', margin: 10 }}>
-                                    <Text style={styles.date}>{new Date(single.date.seconds * 1000).toLocaleDateString("pt-PT")}</Text>
-                                    <Text style={styles.seeMore}>see more</Text>
+        <View>
+            <View style={styles.header}>
+                <Text style={styles.pageTitle}>News</Text>
+            </View>
+            <ScrollView style={{ padding: 20 }}
+                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+                {news.map((single) => {
+                    return (
+                        <TouchableOpacity onPress={() => navigation.navigate('NewsPostScreen', { postData: single })}>
+                            <View key={single.newsID} style={styles.list}>
+                                <Image source={{ uri: single.imageURL }} style={styles.listImage} />
+                                <View style={styles.listingRatingContainer}>
+                                    <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', }}>
+                                        <Image source={{ uri: single.pubImgURL }} style={styles.pubImage} />
+                                        <Text style={styles.title}>{single.newsTitle}</Text>
+                                    </View>
+                                    <View style={{ flexDirection: 'row', margin: 10 }}>
+                                        <Text style={styles.text}>{single.newsText}</Text>
+                                    </View>
+                                    <View style={{ flexDirection: 'row', margin: 10 }}>
+                                        <Text style={styles.date}>{new Date(single.date.seconds * 1000).toLocaleDateString("pt-PT")}</Text>
+                                        <Text style={styles.seeMore}>see more</Text>
+                                    </View>
                                 </View>
                             </View>
-                        </View>
-                    </TouchableOpacity>
+                        </TouchableOpacity>
 
-                )
-            })}
-        </ScrollView>
+                    )
+                })}
+            </ScrollView>
+        </View>
+
     );
 };
 
 const styles = StyleSheet.create({
+    header: {
+        minHeight: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 20
+    },
+
+    pageTitle: {
+        marginRight: 'auto',
+        marginLeft: 'auto',
+        fontSize: 24,
+        color: 'black',        
+    },
+    
     list: {
         backgroundColor: '#F1EFEF',
         width: '100%',
