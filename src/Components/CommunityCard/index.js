@@ -14,102 +14,190 @@ const CommunityCard = (props) => {
     const [isDisliked, setIsDisliked] = useState(false);
     const [reactionData, setReactionData] = useState({})
 
+
     const [user, setUser] = useState([]);
 
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        const checkUserReaction = async () => {
+    //     const checkUserReaction = async () => {
 
-            user.map(async (single) => {
-                let data = []
-                await firestore().collection('community-chat-reactions')
-                    .where('userID', '==', single.uid)
-                    .where('messageID', '==', props.messageID)
-                    .get().then(documentSnapshot => {
-                        documentSnapshot.forEach(document => {
-                            data.push(document.data());
-                        })
-                    });
+    //         user.map(async (single) => {
+    //             let data = []
+    //             await firestore().collection('community-chat-reactions')
+    //                 .where('userID', '==', single.uid)
+    //                 .where('messageID', '==', props.messageID)
+    //                 .get().then(documentSnapshot => {
+    //                     documentSnapshot.forEach(document => {
+    //                         data.push(document.data());
+    //                     })
+    //                 });
 
-                data.forEach(post => {
-                    console.log('Checking: ' + post.userID + " messageID: " + post.messageID)
+    //             if (data.length > 0) {
+    //                 if (data[0].type == 'like')
+    //                     setIsLiked(true);
+    //                 else if (data[0].type == 'dislike')
+    //                     setIsDisliked(true);
+    //             }
 
+    //             setReactionData(data[0])
+
+    //         })
+    //     }
+
+    //     const getUser = () => {
+    //         let data = []
+
+    //         firestore().collection('users').doc(auth().currentUser.uid).onSnapshot(documentSnapshot => {
+    //             data.push(documentSnapshot.data());
+    //             setUser(data);
+    //         })
+
+
+    //         checkUserReaction()
+    //     }
+    //     getUser();
+    // }, [])
+
+
+
+
+    function incrementLikes() {
+        firestore().collection('community-chat').doc(props.messageID)
+            .set({
+                date: props.date,
+                dislikes: dislikes,
+                likes: likes + 1,
+                imageURL: (props.imageURL) ? props.imageURL : "",
+                messageID: props.messageID,
+                messageText: props.messageText,
+                userID: props.userID,
+                verified: props.verified,
+                video: props.video,
+            })
+
+        setLikes(likes + 1);
+        setIsLiked(true)
+    }
+
+    function incrementDislikes() {
+        firestore().collection('community-chat').doc(props.messageID)
+            .set({
+                date: props.date,
+                dislikes: dislikes + 1,
+                likes: likes,
+                imageURL: (props.imageURL) ? props.imageURL : "",
+                messageID: props.messageID,
+                messageText: props.messageText,
+                userID: props.userID,
+                verified: props.verified,
+                video: props.video,
+            })
+
+        setDislikes(dislikes + 1);
+        setIsDisliked(true)
+
+    }
+
+    function decrementLikes() {
+        firestore().collection('community-chat').doc(props.messageID)
+            .set({
+                date: props.date,
+                dislikes: dislikes,
+                likes: likes - 1,
+                imageURL: (props.imageURL) ? props.imageURL : "",
+                messageID: props.messageID,
+                messageText: props.messageText,
+                userID: props.userID,
+                verified: props.verified,
+                video: props.video,
+            })
+
+        setIsLiked(false)
+        setLikes(likes - 1)
+    }
+
+    function decrementDislikes() {
+        firestore().collection('community-chat').doc(props.messageID)
+            .set({
+                date: props.date,
+                dislikes: dislikes - 1,
+                likes: likes,
+                imageURL: (props.imageURL) ? props.imageURL : "",
+                messageID: props.messageID,
+                messageText: props.messageText,
+                userID: props.userID,
+                verified: props.verified,
+                video: props.video,
+            })
+
+        setIsDisliked(false)
+        setDislikes(dislikes - 1)
+    }
+
+    function switchToLike(isToLike) {
+        if (isToLike) {
+            firestore().collection('community-chat').doc(props.messageID)
+                .set({
+                    date: props.date,
+                    dislikes: dislikes - 1,
+                    likes: likes + 1,
+                    imageURL: (props.imageURL) ? props.imageURL : "",
+                    messageID: props.messageID,
+                    messageText: props.messageText,
+                    userID: props.userID,
+                    verified: props.verified,
+                    video: props.video,
                 })
 
-                console.log('Lengtht: ' + data.length)
+            setIsLiked(true)
+            setLikes(likes + 1)
+            setIsDisliked(false)
+            setDislikes(dislikes - 1)
+        } else {
+            firestore().collection('community-chat').doc(props.messageID)
+                .set({
+                    date: props.date,
+                    dislikes: dislikes + 1,
+                    likes: likes - 1,
+                    imageURL: (props.imageURL) ? props.imageURL : "",
+                    messageID: props.messageID,
+                    messageText: props.messageText,
+                    userID: props.userID,
+                    verified: props.verified,
+                    video: props.video,
+                })
 
-                if (data.length > 0) {
-                    if (data[0].type == 'like')
-                        setIsLiked(true);
-                    else if (data[0].type == 'dislike')
-                        setIsDisliked(true);
-                }
-
-                setReactionData(data[0])
-
-            })
+            setIsDisliked(true)
+            setDislikes(dislikes + 1)
+            setIsLiked(false)
+            setLikes(likes - 1)
         }
 
-        const getUser = () => {
-            let data = []
-
-            firestore().collection('users').doc(auth().currentUser.uid).onSnapshot(documentSnapshot => {
-                data.push(documentSnapshot.data());
-                setUser(data);
-            })
-
-
-            checkUserReaction()
-        }
-
-
-
-        getUser();
-    }, [])
-
+    }
 
     function doLike() {
         if (!isLiked) {
-            setLikes(likes + 1);
-            setIsLiked(true)
+
             if (isDisliked) {
                 //Dar update da firebase da reação para like
-                // firestore().collection('community-chat-reactions').doc(props.messageID)
-                // .update({
-
-                // })          
-                setIsDisliked(false)
-                setDislikes(dislikes - 1)
-            } else {
-                //Adicionar na firebase uma reação
-            }
+                switchToLike(true)
+            } else
+                incrementLikes()
         } else {
-            alert('You have already liked this post')
+            decrementLikes()
         }
     }
 
-    function doDislike() {
+    async function doDislike() {
         if (!isDisliked) {
-            setDislikes(dislikes + 1);
-            setIsDisliked(true)
             if (isLiked) {
-                //Dar update da firebase da reação para dislike
-                // firestore().collection('community-chat-reactions').doc(props.messageID)
-                // .update({
-
-                // })    
-                
-                //Decrementar um valor da BD dos likes
-                setIsLiked(false)
-                setLikes(likes - 1)
-            } else {
-                //Adicionar na firebase uma reação
-            }
-
-            //Incrementar um valor dos dislikes na BD
+                //Dar update da firebase da reação para like
+                switchToLike(false)
+            } else
+                incrementDislikes()
         } else {
-            alert('You have already disliked this post')
+            decrementDislikes();
         }
     }
 
@@ -120,12 +208,11 @@ const CommunityCard = (props) => {
                 <Text style={styles.userName}>{props.username}</Text>
             </View>
 
-            <Text style={styles.description}>{props.message}</Text>
-            <Image style={styles.postImage} source={{ uri: props.image }} />
+            <Text style={styles.description}>{props.messageText}</Text>
+            <Image style={styles.postImage} source={{ uri: props.imageURL }} />
             <View style={styles.footer}>
 
-                {/* TO DO: formatar a data */}
-                <Text style={styles.date}>{props.date}</Text>
+                <Text style={styles.date}>{new Date(props.date.seconds * 1000).toLocaleDateString("pt-PT")}</Text>
                 <View style={styles.reactionContainer}>
                     <TouchableOpacity style={styles.reaction} onPress={() => { doLike() }}>
                         <Image style={styles.reactionIcons} source={require(`../../Images/like.jpg`)} />

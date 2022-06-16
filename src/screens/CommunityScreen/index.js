@@ -21,11 +21,11 @@ const CommunityScreen = ({ navigation }) => {
 
         const fetchPosts = async () => {
             await firestore().collection('community-chat')
-                .orderBy("date").get()
+                .orderBy("date","desc").get()
                 .then(collectionSnapshot => {
                     collectionSnapshot
                         .forEach((documentSnapshot) => {
-                            const { messageID, messageText, userID, date, imageURL, likes, dislikes } = documentSnapshot.data();
+                            const { messageID, messageText, userID, date, imageURL, likes, dislikes, verified, video } = documentSnapshot.data();
                             const user = users.find(user => user.uid === userID)
 
                             // console.log("Name: " + user.firstName)
@@ -37,10 +37,13 @@ const CommunityScreen = ({ navigation }) => {
                                 // userImage: user.imageURL,
                                 messageText: messageText,
                                 imageURL: imageURL,
-                                date: new Date(date.seconds * 1000).toLocaleDateString("pt-PT"),
+                                date: date,
                                 messageID: messageID,
                                 likes: likes,
-                                dislikes: dislikes
+                                dislikes: dislikes,
+                                verified: verified,
+                                video: video,
+                                userID: userID,
                             });
                         });
                 });
@@ -78,9 +81,6 @@ const CommunityScreen = ({ navigation }) => {
 
         <View>
             <View style={styles.header}>
-                {/* <TouchableOpacity onPress={() => { navigation.goBack() }}>
-                    <Image style={styles.backArrow} source={require(`../../Images/arrowBack.png`)} />
-                </TouchableOpacity> */}
                 <Text style={styles.pageTitle}>Community</Text>
             </View>
             {/* Card */}
@@ -91,12 +91,15 @@ const CommunityScreen = ({ navigation }) => {
                             key={post.messageID}
                             username={post.username}
                             userImage={post.userImage}
-                            image={post.imageURL}
-                            message={post.messageText}
+                            imageURL={(post.imageURL == "") ? undefined : post.imageURL}
+                            messageText={post.messageText}
                             date={post.date}
                             likes={post.likes}
                             dislikes={post.dislikes}
                             messageID={post.messageID}
+                            verified={post.verified}
+                            video={post.video}
+                            userID = {post.userID}
                         />
                     )
                 })}
