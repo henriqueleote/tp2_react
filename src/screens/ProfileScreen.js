@@ -14,8 +14,6 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import LoginScreen from './Login';
 
-
-
 async function logout() {
     await auth().signOut()
     .then(() => {
@@ -27,14 +25,11 @@ async function logout() {
 
 const ProfileScreen = () => {
     const [user, setUser] = useState([]);
-    const userRef = firestore().collection('users').doc(auth().currentUser.uid);
     useEffect(() => {
         const getUser = async () => {
-                var data = [];
             try {
                 firestore().collection('users').doc(auth().currentUser.uid).onSnapshot(documentSnapshot => {
-                        data.push(documentSnapshot.data());
-                        setUser(data);
+                        setUser(documentSnapshot.data());
                     })
             }
             catch (error) {
@@ -47,17 +42,13 @@ const ProfileScreen = () => {
 
     return (
         <ScrollView style={{padding:20}}>
-            {user.map((single) => {
-            return (
                     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
                       <ScrollView style={styles.container} contentContainerStyle={{justifyContent: 'center', alignItems: 'center'}} showsVerticalScrollIndicator={false}>
-                        <Image style={styles.userImg} source={{uri: single.imageURL }} />
-                        <Text style={styles.userName}> {single.firstName + " "} {single.lastName} </Text>      
+                        <Image style={styles.userImg} source={{uri: user.imageURL }} />
+                        <Text style={styles.userName}> {user.firstName} {user.lastName} </Text>      
                         <Button title='Logout' onPress={() => logout()}></Button>
                       </ScrollView>
                     </SafeAreaView>
-            )
-      }) }
         </ScrollView> 
     );
 };
