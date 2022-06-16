@@ -21,6 +21,9 @@ const styles = StyleSheet.create({
         marginLeft: 'auto',
         fontSize: 24,
         color: 'black',        
+    },
+    extraSpace: {
+        marginBottom: 200
     }
 
 })

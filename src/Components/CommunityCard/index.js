@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Image, Text, TouchableOpacity } from 'react-native';
+import Video from 'react-native-video';
+
 
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
@@ -206,10 +208,11 @@ const CommunityCard = (props) => {
             <View style={styles.header}>
                 <Image style={styles.userIcon} source={{ uri: props.userImage }} />
                 <Text style={styles.userName}>{props.username}</Text>
+                <Image style={styles.verified} source={props.verified ? require('../../Images/verifiedIcon.png') : null} />
             </View>
 
             <Text style={styles.description}>{props.messageText}</Text>
-            <Image style={styles.postImage} source={{ uri: props.imageURL }} />
+            {props.imageURL && !props.video ? <Image style={styles.postImage} source={{ uri: props.imageURL }} /> : null}
             <View style={styles.footer}>
 
                 <Text style={styles.date}>{new Date(props.date.seconds * 1000).toLocaleDateString("pt-PT")}</Text>

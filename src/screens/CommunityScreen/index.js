@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, View, Image, Text, TouchableOpacity } from 'react-native';
 
-import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
 import Card from '../../Components/CommunityCard'
@@ -12,8 +11,8 @@ const CommunityScreen = ({ navigation }) => {
 
     const [posts, setPosts] = useState([]);
     const postsList = [];
+    var usersData = [];
 
-    const [users, setUsers] = useState([]);
 
 
     useEffect(() => {
@@ -21,20 +20,16 @@ const CommunityScreen = ({ navigation }) => {
 
         const fetchPosts = async () => {
             await firestore().collection('community-chat')
-                .orderBy("date","desc").get()
+                .orderBy("date", "desc").get()
                 .then(collectionSnapshot => {
                     collectionSnapshot
                         .forEach((documentSnapshot) => {
                             const { messageID, messageText, userID, date, imageURL, likes, dislikes, verified, video } = documentSnapshot.data();
-                            const user = users.find(user => user.uid === userID)
-
-                            // console.log("Name: " + user.firstName)
-                            // var name = user.firstName;
-                            // name += ' ' + user.lastName;
+                            const user = usersData.find(user => user.uid === userID)
 
                             postsList.push({
-                                username: "name",
-                                // userImage: user.imageURL,
+                                username: user.firstName + ' ' + user.lastName,
+                                userImage: user.imageURL,
                                 messageText: messageText,
                                 imageURL: imageURL,
                                 date: date,
@@ -53,14 +48,13 @@ const CommunityScreen = ({ navigation }) => {
 
 
         const getUsers = async () => {
-            var usersData = [];
+
             try {
                 firestore().collection('users').get()
                     .then(querySnapshot => {
                         querySnapshot.forEach(documentSnapshot => {
                             usersData.push(documentSnapshot.data());
                         });
-                        setUsers(usersData);
                     });
                 fetchPosts();
             }
@@ -79,7 +73,7 @@ const CommunityScreen = ({ navigation }) => {
 
     return (
 
-        <View>
+        <View >
             <View style={styles.header}>
                 <Text style={styles.pageTitle}>Community</Text>
             </View>
@@ -99,10 +93,11 @@ const CommunityScreen = ({ navigation }) => {
                             messageID={post.messageID}
                             verified={post.verified}
                             video={post.video}
-                            userID = {post.userID}
+                            userID={post.userID}
                         />
                     )
                 })}
+                <View style={styles.extraSpace} />
 
             </ScrollView>
 

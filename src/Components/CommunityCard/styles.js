@@ -26,7 +26,8 @@ const styles = StyleSheet.create({
     },
     description: {
         marginTop: 10,
-        marginLeft:40
+        marginLeft:40,
+        marginRight: 25,
     },
     postImage:{
         flex: 1,
@@ -40,8 +41,13 @@ const styles = StyleSheet.create({
     footer: {
         flexDirection: 'row',
         alignItems: 'center',
+        margin: 10,
         marginTop: 'auto',
-        marginRight: 10
+        paddingTop: 20
+    },
+    verified: {
+        marginLeft: 'auto',
+        width: 25, height:25
     },
     
     date: {
@@ -49,7 +55,7 @@ const styles = StyleSheet.create({
     },
     reactionContainer: {
         flexDirection: 'row',
-        marginLeft: 'auto'
+        marginLeft: 'auto',
     },
     reactionIcons: {
         
@@ -59,7 +65,7 @@ const styles = StyleSheet.create({
     },
     reaction: {
         flexDirection: 'row',
-        marginRight: 20
+        marginLeft: 20
     }
 
     
