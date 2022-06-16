@@ -1,62 +1,69 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Button, StyleSheet, Image, TouchableOpacity, RefreshControl, ScrollView } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
-import { ScrollView } from 'react-native-gesture-handler';
+import { } from 'react-native-gesture-handler';
 import ProfileScreen from './ProfileScreen';
 import { useNavigation } from '@react-navigation/native';
 
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+}
 
 const NewsScreen = () => {
-    
+
     const [news, setNews] = useState([]);
     const [users, setUsers] = useState([]);
     const navigation = useNavigation();
+    const [refreshing, setRefreshing] = useState(false)
 
-    
     useEffect(() => {
-        const getNews = async () => {
-                var newsData = [];
-            try {
-                    firestore().collection('news').orderBy("date").get()
-                    .then(querySnapshot => {
-                        querySnapshot.forEach(documentSnapshot => {
-                            newsData.push(documentSnapshot.data());
-                            console.log(documentSnapshot.data());
-                        });
-                        setNews(newsData);
-                });
-            }
-            catch (error) {
-                console.log(error);
-            }
-        };
-
-        const getUsers = async () => {
-                var usersData = [];
-            try {
-                    firestore().collection('users').get()
-                    .then(querySnapshot => {
-                        querySnapshot.forEach(documentSnapshot => {
-                            usersData.push(documentSnapshot.data());
-                            console.log(documentSnapshot.data());
-                        });
-                        setUsers(usersData);
-                    });
-                getNews();
-            }
-            catch (error) {
-                console.log(error);
-            }
-        };
         getUsers();
     }, []);
-
-   return (
-        <ScrollView style={{ padding: 20 }}>
+    const getNews = async () => {
+        var newsData = [];
+        try {
+            firestore().collection('news').orderBy("date").get()
+                .then(querySnapshot => {
+                    querySnapshot.forEach(documentSnapshot => {
+                        newsData.push(documentSnapshot.data());
+                        console.log(documentSnapshot.data());
+                    });
+                    setNews(newsData);
+                });
+        }
+        catch (error) {
+            console.log(error);
+        }
+    };
+    const getUsers = async () => {
+        var usersData = [];
+        try {
+            firestore().collection('users').get()
+                .then(querySnapshot => {
+                    querySnapshot.forEach(documentSnapshot => {
+                        usersData.push(documentSnapshot.data());
+                        console.log(documentSnapshot.data());
+                    });
+                    setUsers(usersData);
+                });
+            getNews();
+        }
+        catch (error) {
+            console.log(error);
+        }
+    };
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        getUsers();
+        wait(1000).then(() => setRefreshing(false));
+    }, []);
+    return (
+        <ScrollView style={{ padding: 20 }}
+            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
             {news.map((single) => {
                 return (
                     <TouchableOpacity onPress={() => navigation.navigate('NewsPostScreen', { postData: single })}>
-                        <View key={ single.newsID } style={styles.list}>
+                        <View key={single.newsID} style={styles.list}>
                             <Image source={{ uri: single.imageURL }} style={styles.listImage} />
                             <View style={styles.listingRatingContainer}>
                                 <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', }}>
@@ -73,42 +80,42 @@ const NewsScreen = () => {
                             </View>
                         </View>
                     </TouchableOpacity>
-                
-            )
-      }) }
-            </ScrollView>
+
+                )
+            })}
+        </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
     list: {
-    backgroundColor: '#F1EFEF',
-    width: '100%',
-    flexDirection: 'column',
-    borderColor: '#000',
-    borderRadius: 10,
-    marginBottom: 20,
-    shadowColor: 'black',
-    elevation: 5,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.5,
-    shadowRadius: 5,  
+        backgroundColor: '#F1EFEF',
+        width: '100%',
+        flexDirection: 'column',
+        borderColor: '#000',
+        borderRadius: 10,
+        marginBottom: 20,
+        shadowColor: 'black',
+        elevation: 5,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.5,
+        shadowRadius: 5,
     },
-    
+
     listImage: {
-      
-    width: '100%',
+
+        width: '100%',
         height: 200,
         borderTopRightRadius: 10,
         borderTopLeftRadius: 10
     },
-  
+
     title: {
         marginLeft: 10,
         marginTop: 18,
         fontWeight: '500',
-        fontSize: 17, 
+        fontSize: 17,
         color: '#333333'
     },
 
@@ -118,14 +125,14 @@ const styles = StyleSheet.create({
 
     date: {
         alignSelf: 'flex-start',
-        fontSize: 12, 
+        fontSize: 12,
         color: '#333333'
     },
 
     seeMore: {
         position: 'absolute',
         right: 0,
-        fontSize: 12, 
+        fontSize: 12,
         color: '#333333'
     },
 
