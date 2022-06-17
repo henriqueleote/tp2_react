@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, Text, TouchableOpacity } from 'react-native';
+import { View, Image, Text, TouchableOpacity, Alert } from 'react-native';
+
+import Dialog from 'react-native-dialog';
 
 
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+
 
 
 var styles = require('./styles');
@@ -14,51 +17,29 @@ const CommunityCard = (props) => {
     const [isLiked, setIsLiked] = useState(false);
     const [isDisliked, setIsDisliked] = useState(false);
     const [reactionData, setReactionData] = useState({})
+    const [verified, setVerified] = useState(false)
 
+    const [visible, setVisible] = useState(false);
+    const [dialogMessage, setDialogMessage] = useState("")
 
     const [user, setUser] = useState([]);
 
+    useEffect(() => {
+        const getUser = async () => {
+            try {
+                await firestore().collection('users').doc(auth().currentUser.uid).onSnapshot(documentSnapshot => {
+                    setUser(documentSnapshot.data());
+                })
+            }
+            catch (error) {
+                console.log(error);
+            }
+        };
 
-    // useEffect(() => {
+        setVerified(props.verified)
 
-    //     const checkUserReaction = async () => {
-
-    //         user.map(async (single) => {
-    //             let data = []
-    //             await firestore().collection('community-chat-reactions')
-    //                 .where('userID', '==', single.uid)
-    //                 .where('messageID', '==', props.messageID)
-    //                 .get().then(documentSnapshot => {
-    //                     documentSnapshot.forEach(document => {
-    //                         data.push(document.data());
-    //                     })
-    //                 });
-
-    //             if (data.length > 0) {
-    //                 if (data[0].type == 'like')
-    //                     setIsLiked(true);
-    //                 else if (data[0].type == 'dislike')
-    //                     setIsDisliked(true);
-    //             }
-
-    //             setReactionData(data[0])
-
-    //         })
-    //     }
-
-    //     const getUser = () => {
-    //         let data = []
-
-    //         firestore().collection('users').doc(auth().currentUser.uid).onSnapshot(documentSnapshot => {
-    //             data.push(documentSnapshot.data());
-    //             setUser(data);
-    //         })
-
-
-    //         checkUserReaction()
-    //     }
-    //     getUser();
-    // }, [])
+        getUser();
+    })
 
 
 
@@ -202,12 +183,64 @@ const CommunityCard = (props) => {
         }
     }
 
+    function switchVisibility() {
+        setVisible(!visible);
+    }
+
+    function makeVerified() {
+        firestore().collection('community-chat').doc(props.messageID).set({
+            date: props.date,
+            dislikes: props.dislikes,
+            imageURL: props.imageURL ? props.imageURL : "",
+            likes: props.likes,
+            messageID: props.messageID,
+            messageText: props.messageText,
+            userID: props.userID,
+            verified: true,
+            video: props.video,
+        })
+
+        const ref = firestore().collection('news').doc()
+
+        ref.set({
+            date: props.date,
+            imageURL: (props.imageURL) ? props.imageURL : "",
+            newsID: ref.id,
+            newsText: props.messageText,
+            newsTitle: dialogMessage,
+            pubID: props.messageID,
+            pubImgURL: props.userImage
+        })
+
+        setVerified(true)
+        setVisible(false)
+
+    }
+
+    function deletePost(){
+        firestore().collection('community-chat').doc(props.messageID).delete()
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
                 <Image style={styles.userIcon} source={{ uri: props.userImage }} />
                 <Text style={styles.userName}>{props.username}</Text>
-                <Image style={styles.verified} source={props.verified ? require('../../Images/verifiedIcon.png') : null} />
+                <View style={styles.adminButtons}>
+                    {user.userType == 'admin' 
+                        ? <TouchableOpacity style={styles.verifiedTouchable} onPress={() => deletePost()}>
+                            <Image style={styles.trashIcon} source={require('../../Images/trashIcon.png')} />
+                        </TouchableOpacity>: null}
+                    <TouchableOpacity style={styles.verifiedTouchable} disabled={verified ? true : false} onPress={() => { switchVisibility() }}>
+                        <Image style={styles.verified}
+                            source={verified
+                                ? require('../../Images/verifiedIcon.png')
+                                : (user.userType == 'admin'
+                                    ? require('../../Images/addVerifiedIcon.png')
+                                    : null)}
+                        />
+                    </TouchableOpacity>
+                </View>
             </View>
 
             <Text style={styles.description}>{props.messageText}</Text>
@@ -226,6 +259,15 @@ const CommunityCard = (props) => {
                     </TouchableOpacity>
                 </View>
             </View>
+
+            <Dialog.Container visible={visible}>
+                <Dialog.Title>Make verified</Dialog.Title>
+                <Dialog.Description>Write Title to the Publication</Dialog.Description>
+
+                <Dialog.Input onChangeText={(text) => { setDialogMessage(text) }} />
+                <Dialog.Button label="Cancel" onPress={() => { setVisible(false) }} />
+                <Dialog.Button label="Confirm" onPress={() => { makeVerified() }} />
+            </Dialog.Container>
         </View>
     );
 };

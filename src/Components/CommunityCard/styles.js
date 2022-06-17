@@ -46,8 +46,12 @@ const styles = StyleSheet.create({
         paddingTop: 20
     },
     verified: {
-        marginLeft: 'auto',
-        width: 25, height:25
+        width: 25, height:25, 
+    },
+    verifiedTouchable: {
+        width: 50, height:50, 
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     
     date: {
@@ -66,6 +70,15 @@ const styles = StyleSheet.create({
     reaction: {
         flexDirection: 'row',
         marginLeft: 20
+    },
+    adminButtons: {
+        marginLeft: 'auto',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    trashIcon:{
+        width: 25, height: 25,
     }
 
     
