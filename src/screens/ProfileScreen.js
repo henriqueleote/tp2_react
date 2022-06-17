@@ -36,19 +36,18 @@ const ProfileScreen = () => {
                 console.log(error);
             }
         };
-
         getUser();
     }, []);
 
     return (
         <ScrollView style={{padding:20}}>
-                    <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
-                      <ScrollView style={styles.container} contentContainerStyle={{justifyContent: 'center', alignItems: 'center'}} showsVerticalScrollIndicator={false}>
-                        <Image style={styles.userImg} source={{uri: user.imageURL }} />
-                        <Text style={styles.userName}> {user.firstName} {user.lastName} </Text>      
-                        <Button title='Logout' onPress={() => logout()}></Button>
-                      </ScrollView>
-                    </SafeAreaView>
+          <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
+            <ScrollView style={styles.container} contentContainerStyle={{justifyContent: 'center', alignItems: 'center'}} showsVerticalScrollIndicator={false}>
+              <Image style={styles.userImg} source={{uri: user.imageURL }} />
+              <Text style={styles.userName}> {user.firstName} {user.lastName} </Text>      
+              <Button title='Logout' onPress={() => logout()}></Button>
+            </ScrollView>
+          </SafeAreaView>
         </ScrollView> 
     );
 };
