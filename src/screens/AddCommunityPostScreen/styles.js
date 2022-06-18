@@ -29,14 +29,36 @@ const styles = StyleSheet.create({
         color: 'black',
     },
     textInput: {
-        borderWidth: 2,
+        borderWidth: 1,
         borderColor: '#929292',
-        marginBottom: 20
+        marginBottom: 20,
+        borderRadius: 5,
     },
     container: {
         marginTop: 50,
-        marginHorizontal: 30, 
+        marginHorizontal: 50, 
+    },
+    backArrow: {
+        width: 30,
+        height: 30,
+        position: 'absolute',
+        top: 5,
+        left: 3
+    },
+    arrowContainer: {
+        borderRadius: 5,
+        backgroundColor: 'white',
+        width: 30,
+        height: 30,
+        marginRight: 10,
+        padding:20
+    },
 
+    button: {
+        backgroundColor: 'red',
+        borderRadius: 10,
+        width: 100,
+        height: 80,
     },
    
 

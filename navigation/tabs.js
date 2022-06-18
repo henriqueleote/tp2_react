@@ -7,7 +7,7 @@ import Profile from '../src/screens/ProfileScreen';
 import News from '../src/screens/NewsScreen';
 import Community from '../src/screens/CommunityScreen';
 import Map from '../src/screens/MapScreen';
-import AddCommunityPostScreen from '../src/screens/AddCommunityPostScreen/index';
+
 
 
 const Tab = createBottomTabNavigator();

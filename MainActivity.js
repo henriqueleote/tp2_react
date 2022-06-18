@@ -7,6 +7,7 @@ import NewsPostScreen from './src/screens/NewsPostScreen';
 import AddCommunityPostScreen from './src/screens/AddCommunityPostScreen';
 
 
+
 const Stack = createStackNavigator();
 
 const MainActivity = () => {
@@ -16,7 +17,7 @@ const MainActivity = () => {
         <Stack.Screen name="Tabs" component={Tabs} options={{ headerShown: false}}/>
         <Stack.Screen name="MissingPostScreen" component={MissingPostScreen} options={{ headerShown: false }} />
         <Stack.Screen name="NewsPostScreen" component={NewsPostScreen} options={{ headerShown: false}}/>
-        <Stack.Screen name="AddCommunityPostScreen" component={AddCommunityPostScreen} options={{ headerShown: false}}/>
+        <Stack.Screen name="AddCommunityPostScreen" component={AddCommunityPostScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
     /*<NavigationContainer>

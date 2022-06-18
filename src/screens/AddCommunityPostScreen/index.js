@@ -52,17 +52,18 @@ const AddCommunityPostScreen = ({ navigation }) => {
         <View>
             <View style={styles.header}>
                 <TouchableOpacity style={styles.touchableOpacity} onPress={() => navigation.goBack()}>
-                    <Image style={styles.arrowBack} source={require('../../Images/arrowBack.png')} />
+                    <View style={styles.arrowContainer}><Image style={styles.backArrow} source={require('../../Images/arrowBack.png')} /></View>
                 </TouchableOpacity>
-                <Text style={styles.pageTitle}>Add Post</Text>
+                <Text style={styles.pageTitle}>Add Community Post</Text>
             </View>
 
             <View style={styles.container}>
                 <TextInput placeholder="Enter your message"
+                    multiline={true}
                     style={styles.textInput}
                     onChangeText={(text) => setMessage(text)} />
-
-                <Button title="Create" onPress={() => submit()} />
+                    {/* the style on the button doesnt work wtf */}
+                <Button title="Add post" style={{backgroundColor: 'red'}} onPress={() => submit()}/>
             </View>
         </View>
 
