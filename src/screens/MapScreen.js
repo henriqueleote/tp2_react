@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Button, Image } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import MapView, { Marker, Polygon, Polyline, PROVIDER_GOOGLE, Callout } from 'react-native-maps';
 import openMap from 'react-native-open-maps';
+import { FloatingAction } from "react-native-floating-action";
 
 
 const MapScreen = () => {
@@ -81,7 +82,6 @@ const MapScreen = () => {
       }            
         {
           pinData.map((pin) => {
-            console.log(pin.images[0]);
             return (
               <Marker
                 key={pin.buildingID}
@@ -97,7 +97,7 @@ const MapScreen = () => {
                 {pin.type == 'war' ? <Image source={require('../Images/warDot.png')} style={{ height: 35, width: 35 }} /> : null}
                 {pin.type == 'hospital' ? <Image source={require('../Images/hospitalDot.png')} style={{ height: 35, width: 35 }} /> : null}
                 <Callout tooltip
-                onPress={() => openMap({ latitude: pin.location._latitude, longitude: pin.location._longitude, query: pin.buildingName, travelType: 'walk' })}>
+                onPress={() => openMap({ latitude: pin.location._latitude, longitude: pin.location._longitude, query: pin.buildingName })}>
                   <View>
                     <View style={styles.box}>
                       <Text style={styles.boxName}>{pin.buildingName}</Text>
@@ -110,6 +110,16 @@ const MapScreen = () => {
           })
       }
       </MapView> 
+            <View style={{position:'absolute', right:0, bottom:70}}>
+                <FloatingAction
+                    color='white'
+                    // Add zone
+                    onPressMain={() => navigation.navigate('')}
+                    floatingIcon={require('../Images/add.png')}
+                    iconWidth={40}
+                    iconHeight={40}
+                    /> 
+            </View>
     </View>
     );   
 };

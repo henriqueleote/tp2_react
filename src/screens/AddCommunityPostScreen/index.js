@@ -3,6 +3,7 @@ import { View, Text, Image, TouchableOpacity, TextInput, Button } from 'react-na
 
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import storage from '@react-native-firebase/firestore'
 
 import styles from './styles'
 
@@ -41,10 +42,10 @@ const AddCommunityPostScreen = ({ navigation }) => {
             messageText: message,
             userID: user.uid,
             verified: false,
-            video: false // para react n foi implementado
+            video: false // not implemented
         })
 
-        navigation.goBack()
+        navigation.navigate('Community')
     }
 
     return (
@@ -63,7 +64,6 @@ const AddCommunityPostScreen = ({ navigation }) => {
 
                 <Button title="Create" onPress={() => submit()} />
             </View>
-
         </View>
 
     )

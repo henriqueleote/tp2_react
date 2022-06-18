@@ -5,6 +5,8 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 
 import Card from '../../Components/CommunityCard'
+import { FloatingAction } from "react-native-floating-action";
+
 
 var styles = require('./styles');
 
@@ -79,7 +81,6 @@ const CommunityScreen = ({ navigation }) => {
 
     }, []);
 
-
     const wait = (timeout) => {
         return new Promise(resolve => setTimeout(resolve, timeout));
     }
@@ -92,11 +93,15 @@ const CommunityScreen = ({ navigation }) => {
     return (
 
         <View style={styles.container}>
+
             <View style={styles.header}>
                 <Text style={styles.pageTitle}>Community</Text>
             </View>
+
+            
             {/* Card */}
             <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+
                 {posts.map((post) => {
                     return (
                         <Card
@@ -119,12 +124,16 @@ const CommunityScreen = ({ navigation }) => {
                 <View style={styles.extraSpace} />
 
             </ScrollView>
-            {user.userType == 'admin' ?
-                <TouchableOpacity style={styles.touchableOpacity} onPress={() => navigation.navigate('AddCommunityPostScreen')}>
-                    <Image style={styles.floatButton}
-                        source={require(`../../Images/floatButton.png`)}
-                    />
-                </TouchableOpacity> : null
+            {user.userType != 'user' ?
+            <View style={{position:'absolute', right:0, bottom:70}}>
+                <FloatingAction
+                    color='white'
+                    onPressMain={() => navigation.navigate('AddCommunityPostScreen')}
+                    floatingIcon={require(`../../Images/add.png`)}
+                    iconWidth={40}
+                    iconHeight={40}
+                    /> 
+            </View> : null
             }
         </View>
     );
