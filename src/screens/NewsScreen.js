@@ -62,13 +62,13 @@ const NewsScreen = () => {
             <View style={styles.header}>
                 <Text style={styles.pageTitle}>News</Text>
             </View>
-            <ScrollView style={{ padding: 20 }}
+            <ScrollView style={{ paddingLeft: 20, paddingRight: 20 }}
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
                 {news.map((single) => {
                     return (
-                        <TouchableOpacity onPress={() => navigation.navigate('NewsPostScreen', { postData: single })}>
-                            <View key={single.newsID} style={styles.list}>
-                                <Image source={{ uri: single.imageURL }} style={styles.listImage} />
+                        <TouchableOpacity key={single.newsID} onPress={() => navigation.navigate('NewsPostScreen', { postData: single })}>
+                            <View  style={styles.list}>
+                                <Image source={{ uri: single.imageURL + "a" }} style={styles.listImage} />
                                 <View style={styles.listingRatingContainer}>
                                     <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', }}>
                                         <Image source={{ uri: single.pubImgURL }} style={styles.pubImage} />

@@ -7,6 +7,7 @@ import Profile from '../src/screens/ProfileScreen';
 import News from '../src/screens/NewsScreen';
 import Community from '../src/screens/CommunityScreen';
 import Map from '../src/screens/MapScreen';
+import AddCommunityPostScreen from '../src/screens/AddCommunityPostScreen/index';
 
 
 const Tab = createBottomTabNavigator();
@@ -29,11 +30,11 @@ const Tabs = () => {
                 }
             }}
         >
-            <Tab.Screen  name='MissingBoardScreen' component={MissingBoardScreen} options={{ headerShown: false, tabBarIcon: () => (<Image source={require("../assets/icons/map.png")} style={{ width: 30, height: 30 }} />) }} />
-            <Tab.Screen name='News' component={News} options={{ headerShown: false, tabBarIcon: () => (<Image source={require("../assets/icons/news.png")} style={{width: 30, height: 30}} />)}} />
+            <Tab.Screen name='Map' component={Map} options={{ headerShown: false, tabBarIcon: () => (<Image source={require("../assets/icons/map.png")} style={{ width: 30, height: 30 }} />) }} />
+            <Tab.Screen name='News' component={News} options={{ headerShown: false, tabBarIcon: () => (<Image source={require("../assets/icons/news.png")} style={{ width: 30, height: 30 }} />) }} />
             <Tab.Screen name='Community' component={Community} options={{ headerShown: false,  tabBarIcon: () => (<Image source={require("../assets/icons/community.png")} style={{width: 30, height: 30}} />)}} />
+            <Tab.Screen name='MissingBoardScreen' component={MissingBoardScreen} options={{ headerShown: false, tabBarIcon: () => (<Image source={require("../assets/icons/missing.png")} style={{ width: 30, height: 30 }} />) }} />
             <Tab.Screen name='Profile' component={Profile} options={{ headerShown: false, tabBarIcon: () => (<Image source={require("../assets/icons/profile.png")} style={{ width: 30, height: 30 }} />) }} />
-            <Tab.Screen name='Map' component={Map} options={{ headerShown: false }} />
         </Tab.Navigator>
     )
 }

@@ -43,6 +43,20 @@ const styles = StyleSheet.create({
         width: '100%',
     },
 
+     header: {
+        minHeight: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 20
+    },
+
+    pageTitle: {
+        marginRight: 'auto',
+        marginLeft: 'auto',
+        fontSize: 24,
+        color: 'black',        
+    },
+
     missingBigText: {
         marginRight: 'auto',
         marginLeft: 'auto',
@@ -128,7 +142,9 @@ const MissingBoardScreen = () => {
 
     return (
         <View style={stylesGrid.scrollContainer}>
-            <Text style={styles.missingBigText}>Missing Board</Text>
+                        <View style={styles.header}>
+                <Text style={styles.pageTitle}>Missing Board</Text>
+            </View>
             <ScrollView style={stylesGrid.scrollContainer}>
                 <View style={stylesGrid.sectionContainer}>
                     {missing.map((post) => {
