@@ -1,8 +1,8 @@
-import React, {useState, useEffect, useCallback, useMemo, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, Text, StyleSheet, Button, Image } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import MapView, { Marker, Polygon, Polyline, PROVIDER_GOOGLE, Callout } from 'react-native-maps';
-import BottomSheet from '@gorhom/bottom-sheet';
+import openMap from 'react-native-open-maps';
 
 
 const MapScreen = () => {
@@ -20,7 +20,7 @@ const MapScreen = () => {
   
   const getPins = async () => {
     try {
-              firestore().collection('map-pins').onSnapshot(snapshotDoc => {
+              firestore().collection('map-buildings').onSnapshot(snapshotDoc => {
                 snapshotDoc.forEach(documentSnapshot => {
                     pData.push(documentSnapshot.data());
                 })  
@@ -45,9 +45,15 @@ const MapScreen = () => {
                 console.log(error);
             }
   };
+
+  const oi = async () => {
+    
+  }
  
   return (
-    <MapView
+    <View
+      style={styles.container}>
+      <MapView
         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
         style={styles.container}
         initialRegion={{
@@ -62,9 +68,6 @@ const MapScreen = () => {
           zone.points.forEach(single => {
             location.push({"latitude":single._latitude, "longitude":single._longitude})
           })
-          console.log(location);
-          console.log(zoneData.length);
-          console.log(location.length);
             return (
               <Polygon
                 key={zone.zoneID}
@@ -76,8 +79,9 @@ const MapScreen = () => {
           );
         })
       }            
-      {
-        pinData.map((pin) => {
+        {
+          pinData.map((pin) => {
+            console.log(pin.images[0]);
             return (
               <Marker
                 key={pin.buildingID}
@@ -92,12 +96,21 @@ const MapScreen = () => {
                 {pin.type == 'earthquake' ? <Image source={require('../Images/earthquakeDot.png')} style={{ height: 35, width: 35 }} /> : null}
                 {pin.type == 'war' ? <Image source={require('../Images/warDot.png')} style={{ height: 35, width: 35 }} /> : null}
                 {pin.type == 'hospital' ? <Image source={require('../Images/hospitalDot.png')} style={{ height: 35, width: 35 }} /> : null}
+                <Callout tooltip
+                onPress={() => openMap({ latitude: pin.location._latitude, longitude: pin.location._longitude, query: pin.buildingName, travelType: 'walk' })}>
+                  <View>
+                    <View style={styles.box}>
+                      <Text style={styles.boxName}>{pin.buildingName}</Text>
+                      <Text style={styles.boxDescription}>{pin.buildingDescription}</Text>
+                    </View>
+                  </View>
+                </Callout>
           </Marker>
           );
           })
       }
-      
-    </MapView>  
+      </MapView> 
+    </View>
     );   
 };
 
@@ -105,6 +118,42 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+
+  // markerPanel
+  box: {
+    flexDirection: 'column',
+    alignSelf: 'flex-start',
+    backgroundColor: '#fff',
+    borderRadius: 6,
+    borderColor: 'white',
+    borderWidth: 0.5,
+    padding: 15,
+    width: 200,
+    height: 'auto'
+  },
+  boxName: {
+    fontSize: 16,
+    marginBottom: 5,
+    textAlign: 'center',
+    color: 'black'
+  },
+  boxDescription: {
+    fontSize: 13,
+    marginBottom: 5,
+    textAlign: 'center',
+    color: 'black'
+  },
+  boxButtons: {
+    width: 50,
+    height: 50
+  },
+  pubImage: {
+        width: 40,
+        height: 40,
+        borderRadius: 50,
+        marginLeft: 10,
+        marginTop: 10
+    }
 });
 
 export default MapScreen;

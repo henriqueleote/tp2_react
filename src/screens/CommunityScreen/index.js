@@ -126,8 +126,6 @@ const CommunityScreen = ({ navigation }) => {
                     />
                 </TouchableOpacity> : null
             }
-
-
         </View>
     );
 };

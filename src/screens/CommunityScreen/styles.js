@@ -4,10 +4,9 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
 
     header: {
-        minHeight: 20,
         flexDirection: 'row',
         alignItems: 'center',
-        marginVertical: 20
+        marginTop: 20
     },
     backArrow: {
         width: 30,
