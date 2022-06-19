@@ -49,12 +49,12 @@ const NewsPostScreen = ({ route }) => {
         <ScrollView>
             <View style={styles.header}>
                 <ImageBackground source={{ uri: postData.imageURL }} resizeMode="cover" style={styles.imageIRL}>
-                <TouchableOpacity onPress={() => { navigation.goBack() }}>
-                    <View style={styles.arrowContainer}><Image style={styles.backArrow} source={require('../Images/arrowBack.png')} /></View>
-                </TouchableOpacity>
                 <TouchableOpacity onPress={()=>{share()} }>
                     <Image style={styles.share} resizeMode="cover" source={require('../Images/share_blue.png')} />
-                </TouchableOpacity>    
+                </TouchableOpacity>  
+                <TouchableOpacity onPress={() => { navigation.goBack() }}>
+                    <View style={styles.arrowContainer}><Image style={styles.backArrow} source={require('../Images/arrowBack.png')} /></View>
+                </TouchableOpacity>  
                 </ImageBackground>
             </View>
 
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     share: {
         width: 64,
         height: 64,
-        top: 160,
+        top: 185,
         left: 310,
     },
     backArrow: {
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         width: 30,
         height: 30,
-        top: 20,
+        top: -40,
         marginRight: 50,
         marginLeft: 20,
         padding:20

@@ -71,8 +71,8 @@ const Post = ({ route }) => {
         <ScrollView>
             <View style={styles.header}>
                 <TouchableOpacity onPress={() => { navigation.goBack() }}>
-                    <Image style={styles.backArrow} source={require('../Images/arrowBack.png')} />
-                </TouchableOpacity>
+                    <View style={styles.arrowContainer}><Image style={styles.backArrow} source={require('../Images/arrowBack.png')} /></View>
+                </TouchableOpacity>  
             </View>
             <MissingPost 
                 userID = {userID}

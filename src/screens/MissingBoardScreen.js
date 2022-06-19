@@ -69,8 +69,7 @@ const styles = StyleSheet.create({
     missingName: {
         position: 'absolute',
         bottom: 0,
-        fontWeight: '500',
-        fontSize: 17,
+        fontSize: 15,
         color: '#333333',
         marginRight: 'auto',
         marginLeft: 'auto',

@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.5,
         shadowRadius: 5,
+        marginTop: 20
     },
     
     cardContainer: {
@@ -78,7 +79,7 @@ const styles = StyleSheet.create({
         height:200,
         resizeMode:'cover',
         width: '100%',
-        
+        marginTop: 10
     },
 
     infoTextMissing:{

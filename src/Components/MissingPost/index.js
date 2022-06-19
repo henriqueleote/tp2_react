@@ -39,13 +39,10 @@ const MissingPost = (props) => {
                     <Image style={styles.missingImage} source={{uri: missingPic}} />
                     <View style={styles.infoTextMissing}>
                         <Text style={styles.text}>{props.missingName}</Text>
-                        <Text style={styles.text}>{props.missingAge}</Text>
+                        <Text style={styles.text}>{props.missingAge} years</Text>
                         <Text style={styles.text}>{props.description}</Text>
                     </View>
-
                     <View style={styles.comunication}>
-
-                    
                     <TouchableHighlight onPress={()=>{share()}}>
                         <Image style={styles.shareIcon} source={require('../../Images/share.png')} />
                 </TouchableHighlight>

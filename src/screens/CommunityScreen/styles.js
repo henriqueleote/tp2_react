@@ -8,12 +8,21 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 20
     },
-    backArrow: {
+        backArrow: {
         width: 30,
         height: 30,
-        resizeMode: 'stretch',
-        marginRight: -50,
+        position: 'absolute',
+        top: 5,
+        left: 3
+    },
+    arrowContainer: {
+        borderRadius: 5,
+        backgroundColor: 'white',
+        width: 30,
+        height: 30,
+        marginRight: 50,
         marginLeft: 20,
+        padding:20
     },
     pageTitle: {
         marginRight: 'auto',
