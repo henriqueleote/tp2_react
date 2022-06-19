@@ -38,6 +38,7 @@ export default function Login() {
 
   return (
     <View style={styles.screen}>
+      <Image source={require('../Images/icon.png')} style={{width:175, height:175, marginBottom:20}}/>
       <Text style={styles.title}>Sign in</Text>
       <View style={styles.SectionStyle}>
         <Image source={require('../Images/email.png')} style={styles.ImageStyle}></Image>
