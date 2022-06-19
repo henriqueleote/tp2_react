@@ -4,7 +4,6 @@ import {
     Text,
     Image,
     TouchableOpacity,
-    Button,
     TextInput,
     StyleSheet,
     ScrollView,
@@ -67,8 +66,8 @@ const ProfileEdit = () => {
                 <ScrollView style={styles.container} contentContainerStyle={{ justifyContent: 'center', alignItems: 'center' }} showsVerticalScrollIndicator={false}>
                     <Image style={styles.userImg} source={user.imageURL !== 'null' ? { uri: user.imageURL } : require('../Images/unknown.png')} />
                     <View style={styles.info}>
-                        <View style={styles.SectionStyle}>
-                            <TextInput
+                        <View style={styles.SectionStyle} >
+                            <TextInput style={{ width: 280}}
                                 value={firstName}
                                 onChangeText={setFirstName}
                                 placeholder="First name"
@@ -77,7 +76,7 @@ const ProfileEdit = () => {
                             />
                         </View>
                         <View style={styles.SectionStyle}>
-                            <TextInput
+                            <TextInput style={{ width: 280}}
                                 value={lastName}
                                 onChangeText={setLastName}
                                 placeholder="Last name"
@@ -86,7 +85,7 @@ const ProfileEdit = () => {
                             />
                         </View>
                         <View style={styles.SectionStyle}>
-                            <TextInput
+                            <TextInput style={{ width: 280}}
                                 value={phoneNumber}
                                 onChangeText={setPhoneNumber}
                                 placeholder="Phone number"
@@ -118,63 +117,23 @@ const styles = StyleSheet.create({
         width: 150,
         borderRadius: 75,
     },
-    userName: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginTop: 10,
-        marginBottom: 10,
-    },
-    aboutUser: {
-        fontSize: 12,
-        fontWeight: '600',
-        color: '#666',
-        textAlign: 'center',
-        marginBottom: 10,
-    },
-    userBtnWrapper: {
+    
+    SectionStyle: {
         flexDirection: 'row',
         justifyContent: 'center',
-        width: '100%',
-        marginBottom: 10,
-    },
-    userBtn: {
-        borderColor: '#2e64e5',
-        borderWidth: 2,
-        borderRadius: 3,
-        paddingVertical: 8,
-        paddingHorizontal: 12,
-        marginHorizontal: 5,
-    },
-    userBtnTxt: {
-        color: '#2e64e5',
-    },
-    userInfoWrapper: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        width: '100%',
-        marginVertical: 20,
-    },
-    userInfoItem: {
-        justifyContent: 'center',
-    },
-    userInfoTitle: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 5,
-        textAlign: 'center',
-    },
-    userInfoSubTitle: {
-        fontSize: 12,
-        color: '#666',
-        textAlign: 'center',
-    },
+        alignItems: 'center',
+        borderBottomWidth: 1,
+        borderColor: '#6d69c3',
+        height: 40,
+        width: 280
+      },
+      
     info: {
         marginTop: 40,
         fontSize: 14,
         flexDirection: 'column',
         justifyContent: 'space-between',
         height: 100,
-        marginRight: 150
     },
     editName: {
         flexDirection: 'row',
