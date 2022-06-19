@@ -27,10 +27,11 @@ const ProfileEdit = () => {
         const getUser = async () => {
             try {
                 firestore().collection('users').doc(auth().currentUser.uid).onSnapshot(documentSnapshot => {
-                    setUser(documentSnapshot.data());
-                    setFirstName(user.firstName);
-                    setLastName(user.lastName);
-                    setPhoneNumber(user.phoneNumber);
+                    const _user = documentSnapshot.data();
+                    setUser(_user);
+                    setFirstName(_user.firstName);
+                    setLastName(_user.lastName);
+                    setPhoneNumber(_user.phoneNumber);
                 })
             }
             catch (error) {
