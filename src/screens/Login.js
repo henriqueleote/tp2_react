@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Image, TouchableOpacity, Button } from 'react-native';
 import auth from '@react-native-firebase/auth';
 
 export default function Login() {
@@ -17,6 +17,14 @@ export default function Login() {
     }
   };
 
+  const resetPassword = () => {
+    if (email.trim().length == 0) alert('Type in email')
+    else
+    return auth().sendPasswordResetEmail(email).then((a) => {
+    alert("Password reset email sent")
+  })
+  }
+
   const signin = () => {
     try {
       if (email.trim().length == 0) alert('Type in email')
@@ -30,6 +38,7 @@ export default function Login() {
 
   return (
     <View style={styles.screen}>
+      <Image source={require('../Images/icon.png')} style={{width:175, height:175, marginBottom:20}}/>
       <Text style={styles.title}>Sign in</Text>
       <View style={styles.SectionStyle}>
         <Image source={require('../Images/email.png')} style={styles.ImageStyle}></Image>
@@ -58,8 +67,12 @@ export default function Login() {
         </TouchableOpacity>
       </View>
       <View >
-        <TouchableOpacity style={styles.buttons} title="" onPress={signin}>
+        <TouchableOpacity style={styles.buttons} onPress={signin}>
           <Text style={{ color: '#ffffff' }}>Sign In</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={resetPassword}>
+          <Text style={{ color: 'black', marginTop: 20, textAlign: 'center' }}>Recover password</Text>
         </TouchableOpacity>
       </View>
     </View>

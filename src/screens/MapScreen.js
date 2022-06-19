@@ -4,9 +4,12 @@ import firestore from '@react-native-firebase/firestore';
 import MapView, { Marker, Polygon, Polyline, PROVIDER_GOOGLE, Callout } from 'react-native-maps';
 import openMap from 'react-native-open-maps';
 import { FloatingAction } from "react-native-floating-action";
+import { useNavigation } from '@react-navigation/native';
 
 
 const MapScreen = () => {
+
+  const navigation = useNavigation();
 
   const [pinData, setPinData] = useState([]);
   const [zoneData, setZoneData] = useState([]);
@@ -46,10 +49,6 @@ const MapScreen = () => {
                 console.log(error);
             }
   };
-
-  const oi = async () => {
-    
-  }
  
   return (
     <View
@@ -62,7 +61,8 @@ const MapScreen = () => {
           longitude: -9.0406193,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
-      }}>
+        }}
+      >
       {
         zoneData.map((zone) => {
           let location = [];
@@ -110,16 +110,6 @@ const MapScreen = () => {
           })
       }
       </MapView> 
-            <View style={{position:'absolute', right:0, bottom:70}}>
-                <FloatingAction
-                    color='white'
-                    // Add zone
-                    onPressMain={() => navigation.navigate('')}
-                    floatingIcon={require('../Images/add.png')}
-                    iconWidth={40}
-                    iconHeight={40}
-                    /> 
-            </View>
     </View>
     );   
 };
