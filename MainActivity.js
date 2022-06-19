@@ -5,6 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import MissingPostScreen from './src/screens/MissingPostScreen';
 import NewsPostScreen from './src/screens/NewsPostScreen';
 import AddCommunityPostScreen from './src/screens/AddCommunityPostScreen';
+import ProfileEdit from './src/screens/ProfileEdit';
 
 
 const Stack = createStackNavigator();
@@ -17,6 +18,7 @@ const MainActivity = () => {
         <Stack.Screen name="MissingPostScreen" component={MissingPostScreen} options={{ headerShown: false }} />
         <Stack.Screen name="NewsPostScreen" component={NewsPostScreen} options={{ headerShown: false}}/>
         <Stack.Screen name="AddCommunityPostScreen" component={AddCommunityPostScreen} options={{ headerShown: false}}/>
+        <Stack.Screen name="ProfileEdit" component={ProfileEdit} options={{ headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
     /*<NavigationContainer>

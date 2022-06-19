@@ -13,6 +13,7 @@ import {
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import LoginScreen from './Login';
+import { useNavigation } from '@react-navigation/native';
 
 async function logout() {
   await auth().signOut()
@@ -25,6 +26,7 @@ async function logout() {
 
 const ProfileScreen = () => {
   const [user, setUser] = useState([]);
+  const navigation = useNavigation();
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -46,7 +48,7 @@ const ProfileScreen = () => {
           <Image style={styles.userImg} source={user.imageURL !== 'null' ? { uri: user.imageURL } : require('../Images/unknown.png')} />
           <View style={styles.editName}>
             <Text style={styles.userName}> {user.firstName} {user.lastName} </Text>
-            <TouchableOpacity >
+            <TouchableOpacity onPress={() => navigation.navigate('ProfileEdit',{postData : user})}>
               <Image source={require('../Images/pencil.png')} style={{height: 21, width: 21, marginLeft: 10}}></Image>
             </TouchableOpacity>
           </View>
@@ -55,12 +57,6 @@ const ProfileScreen = () => {
             <Text >Email: {user.email}</Text>
             <Text >Contact: {user.phoneNumber}</Text>
           </View>
-          <TouchableOpacity style={styles.buttons}>
-            <Text style={{ color: '#ffffff' }}>Publications in Community</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.buttons}>
-            <Text style={{ color: '#ffffff' }}>Publications in Missing</Text>
-          </TouchableOpacity>
           <TouchableOpacity style={styles.logout} onPress={() => logout()} >
             <Text style={{ color: '#ffffff' }}>LOG OUT</Text>
           </TouchableOpacity>
@@ -134,19 +130,6 @@ const styles = StyleSheet.create({
     color: '#666',
     textAlign: 'center',
   },
-  buttons: {
-    width: 190,
-    marginTop: 30,
-    borderRadius: 9,
-    padding: 10,
-    borderTopLeftRadius: 6,
-    borderBottomRightRadius: 6,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    backgroundColor: '#DE2F2F',
-    elevation: 10,
-    marginRight: 150
-  },
   info: {
     marginTop: 40,
     fontSize: 14,
@@ -169,7 +152,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 6,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    backgroundColor: '#2E98F0',
+    backgroundColor: '#DE2F2F',
     elevation: 10,
   },
 });
